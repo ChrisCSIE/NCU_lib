@@ -22,52 +22,54 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int a1444569622569=0x7f020000;
-        public static final int a1444569630401=0x7f020001;
-        public static final int a1444569638794=0x7f020002;
+        public static final int 1444716008834=0x7f020000;
+        public static final int a1444569622569=0x7f020001;
+        public static final int a1444569630401=0x7f020002;
+        public static final int a1444569638794=0x7f020003;
         /** <drawable name="actionbar_background">#D35400</drawable>
     <drawable name="background">#D2D7D3</drawable>
     <drawable name="word">#2c3e50</drawable>
     <drawable name="button">#16a085</drawable>
     <drawable name="button_word">#E4F1FE</drawable> 
          */
-        public static final int actionbar_background=0x7f020015;
+        public static final int actionbar_background=0x7f020017;
         /**  #F37D2A 
          */
-        public static final int background=0x7f020016;
-        public static final int borrowed=0x7f020003;
-        public static final int button=0x7f020018;
-        public static final int button_word=0x7f020019;
-        public static final int custom_edittext=0x7f020004;
-        public static final int edittext_style=0x7f020005;
-        public static final int hilight=0x7f020006;
-        public static final int ic_launcher=0x7f020007;
-        public static final int icon=0x7f020008;
-        public static final int loading_background=0x7f02001a;
-        public static final int login=0x7f020009;
-        public static final int navigator=0x7f02000a;
-        public static final int new_book=0x7f02000b;
-        public static final int news=0x7f02000c;
-        public static final int not_requestable=0x7f02001b;
-        public static final int notice=0x7f02000d;
-        public static final int opening_hours=0x7f02000e;
-        public static final int requested=0x7f02000f;
-        public static final int search=0x7f020010;
-        public static final int text_field=0x7f020011;
-        public static final int title=0x7f020012;
-        public static final int welcome=0x7f020013;
-        public static final int welcome_title=0x7f020014;
-        public static final int word=0x7f020017;
+        public static final int background=0x7f020018;
+        public static final int borrowed=0x7f020004;
+        public static final int button=0x7f02001a;
+        public static final int button_word=0x7f02001b;
+        public static final int custom_edittext=0x7f020005;
+        public static final int edittext_style=0x7f020006;
+        public static final int hilight=0x7f020007;
+        public static final int home_page_background=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int icon=0x7f02000a;
+        public static final int loading_background=0x7f02001c;
+        public static final int login=0x7f02000b;
+        public static final int navigator=0x7f02000c;
+        public static final int new_book=0x7f02000d;
+        public static final int news=0x7f02000e;
+        public static final int not_requestable=0x7f02001d;
+        public static final int notice=0x7f02000f;
+        public static final int opening_hours=0x7f020010;
+        public static final int requested=0x7f020011;
+        public static final int search=0x7f020012;
+        public static final int text_field=0x7f020013;
+        public static final int title=0x7f020014;
+        public static final int welcome=0x7f020015;
+        public static final int welcome_title=0x7f020016;
+        public static final int word=0x7f020019;
     }
     public static final class id {
-        public static final int account=0x7f080001;
+        public static final int account=0x7f080002;
         public static final int action_settings=0x7f080007;
-        public static final int clear=0x7f080005;
-        public static final int linearLayout03=0x7f080000;
-        public static final int linearLayout04=0x7f080002;
-        public static final int login=0x7f080004;
-        public static final int pwd=0x7f080003;
-        public static final int welcome=0x7f080006;
+        public static final int clear=0x7f080006;
+        public static final int linearLayout03=0x7f080001;
+        public static final int linearLayout04=0x7f080003;
+        public static final int login=0x7f080005;
+        public static final int pwd=0x7f080004;
+        public static final int welcome=0x7f080000;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
