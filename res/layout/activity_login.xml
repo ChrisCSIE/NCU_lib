@@ -55,6 +55,7 @@
        android:id="@+id/linearLayout03"     
        android:layout_marginLeft="20px"
        android:background="#ffffff"
+       android:gravity="center"
        
        >
          <TextView
@@ -82,6 +83,7 @@
        android:layout_height="wrap_content"
        android:id="@+id/linearLayout04" 
        android:layout_marginLeft="20px"
+       android:gravity="center"
        >
          <TextView
               android:text="密 碼 "
