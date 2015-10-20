@@ -1,143 +1,143 @@
-//package ncu.lib;
-//
-//import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//import java.util.Vector;
-//
-//import android.app.Activity;
-//import android.content.DialogInterface.OnClickListener;
-//import android.content.pm.ActivityInfo;
-//import android.os.Bundle;
-//import android.os.Handler;
-//import android.os.Message;
-//import android.view.KeyEvent;
-//import android.view.View;
-//import android.view.Window;
-//import android.view.WindowManager;
-//import android.widget.AdapterView;
-//import android.widget.AdapterView.OnItemClickListener;
-//import android.widget.AdapterView.OnItemSelectedListener;
-//import android.widget.ArrayAdapter;
-//import android.widget.BaseAdapter;
-//import android.widget.Button;
-//import android.widget.EditText;
-//import android.widget.GridView;
-//import android.widget.ImageButton;
-//import android.widget.LinearLayout;
-//import android.widget.RadioButton;
-//import android.widget.SimpleAdapter;
-//import android.widget.Spinner;
-//import android.widget.TextView;
-//import android.widget.Toast;
-//
-//enum WhichView {MAIN_MENU,IP_VIEW,LOSE_VIEW,YUYUE_VIEW,QUERY_VIEW,GIRD_VIEW,DETIALSVIEW,YUYUEDETAILS,YUYUE_MANAGE,LOSE_INFO_VIEW,
-//	            LOSE_DETAILS_VIEW,MANAGE_DETAILS_VIEW,QUERYMAIN_VIEW,SELF_VIEW_INFO,HELP_VIEW,ABOUT_VIEW}
-//
-//public class RootActivity extends Activity 
-//{
+package ncu.lib;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
+import android.app.Activity;
+import android.content.DialogInterface.OnClickListener;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+enum WhichView {MAIN_MENU,IP_VIEW,LOSE_VIEW,YUYUE_VIEW,QUERY_VIEW,GIRD_VIEW,DETIALSVIEW,YUYUEDETAILS,YUYUE_MANAGE,LOSE_INFO_VIEW,
+	            LOSE_DETAILS_VIEW,MANAGE_DETAILS_VIEW,QUERYMAIN_VIEW,SELF_VIEW_INFO,HELP_VIEW,ABOUT_VIEW}
+
+public class RootActivity extends Activity 
+{
 //	MainMenuView mmv;
-//	WhichView curr;
-//	private String sname;//保存登錄時的用戶名
-//	private Vector<String> queryTOgird =new Vector<String>();	
-//	private Vector<String> detailsSelect=new Vector<String>();	
-//	private Vector<Integer> resultnumdetails =new Vector<Integer>();
-//	private String numberdetails;
-//	private Vector<String> yuyuedetails1=new Vector<String>();//預約主界面到詳細界面的數據承載集合
-//	private Vector<String> yuyuedetails2=new Vector<String>();//預約主頁界面到詳細界面的數據集合
-//	private Vector<String> yuyueManage1=new Vector<String>();//預約管理表的數據集合	
-//	private String bookno;
-//	private Vector<String> loseInfo=new Vector<String>();//掛失圖書基本信息的數據集合
-//	private Vector<String> loseInfo1=new Vector<String>();//掛失圖書基本信息的數據集合
-//	private Vector<String> manageInfo=new Vector<String>();//查看預約圖書的基本信息
-//	private String SnameID;
-//	private Vector<String> selfQuery=new Vector<String>();//個人圖書查詢的基本信息
-//    private Vector<String> strmanage=new Vector<String>();//文本中的書號
-//    
-//    
-//    Handler hd=new Handler() //接受信息界面跳轉
-//    {
-//	   @Override
-//	  public void handleMessage(Message msg)//重寫方法  
-//	  {
-//		 switch(msg.what)
-//		 {
-//		     case 0:
-//		    	 gotoIpView();  //登錄界面
-//			    break;
-//		     case 1:
-//		    	 gotoQueryMainView();   //查詢界面
-//			    break;
-//		     case 2:
-//		    	 gotoloseView();   //掛失界面
-//			    break;
-//		     case 3:
-//		    	 gotoyuyueView();  //預約界面
-//			    break;
-//		     case 4:
-//		    	 goToHelpView();   //註銷界面及ipview()
-//		        break;
-//		     case 5:
-//		    	 goToAboutView();
-//		    	 break;
-//		 }
-//	 }
-//   };	
-//	
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) 
-//    {
-//        super.onCreate(savedInstanceState);        
-//        //設置全屏顯示
-//        requestWindowFeature(Window.FEATURE_NO_TITLE); 
-//        getWindow().setFlags
-//        (
-//        		WindowManager.LayoutParams.FLAG_FULLSCREEN ,  
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN
-//        );      
-//        //強制為豎屏
-//        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//        
-//      
-//        goToWelcomeView();
-//    }
-//       
-//    //幫助界面
-//    public void goToHelpView()
-//    {
+	WhichView curr;
+	private String sname;//保存登錄時的用戶名
+	private Vector<String> queryTOgird =new Vector<String>();	
+	private Vector<String> detailsSelect=new Vector<String>();	
+	private Vector<Integer> resultnumdetails =new Vector<Integer>();
+	private String numberdetails;
+	private Vector<String> yuyuedetails1=new Vector<String>();//預約主界面到詳細界面的數據承載集合
+	private Vector<String> yuyuedetails2=new Vector<String>();//預約主頁界面到詳細界面的數據集合
+	private Vector<String> yuyueManage1=new Vector<String>();//預約管理表的數據集合	
+	private String bookno;
+	private Vector<String> loseInfo=new Vector<String>();//掛失圖書基本信息的數據集合
+	private Vector<String> loseInfo1=new Vector<String>();//掛失圖書基本信息的數據集合
+	private Vector<String> manageInfo=new Vector<String>();//查看預約圖書的基本信息
+	private String SnameID;
+	private Vector<String> selfQuery=new Vector<String>();//個人圖書查詢的基本信息
+    private Vector<String> strmanage=new Vector<String>();//文本中的書號
+    
+    
+    Handler hd=new Handler() //接受信息界面跳轉
+    {
+	   @Override
+	  public void handleMessage(Message msg)//重寫方法  
+	  {
+		 switch(msg.what)
+		 {
+		     case 0:
+		    	 gotoIpView();  //登錄界面
+			    break;
+		     case 1:
+		    	 gotoQueryMainView();   //查詢界面
+			    break;
+		     case 2:
+		    	 gotoloseView();   //掛失界面
+			    break;
+		     case 3:
+		    	 gotoyuyueView();  //預約界面
+			    break;
+		     case 4:
+		    	 goToHelpView();   //註銷界面及ipview()
+		        break;
+		     case 5:
+		    	 goToAboutView();
+		    	 break;
+		 }
+	 }
+   };	
+	
+    @Override
+    public void onCreate(Bundle savedInstanceState) 
+    {
+        super.onCreate(savedInstanceState);        
+        //設置全屏顯示
+        requestWindowFeature(Window.FEATURE_NO_TITLE); 
+        getWindow().setFlags
+        (
+        		WindowManager.LayoutParams.FLAG_FULLSCREEN ,  
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );      
+        //強制為豎屏
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        
+      
+        goToWelcomeView();
+    }
+       
+    //幫助界面
+    public void goToHelpView()
+    {
 //    	setContentView(R.layout.helpview);   	
 //    	curr=WhichView.HELP_VIEW;
-//    }
-//    
-//    //關於界面
-//    public void goToAboutView()
-//    {
+    }
+    
+    //關於界面
+    public void goToAboutView()
+    {
 //    	setContentView(R.layout.about);
 //    	curr=WhichView.ABOUT_VIEW;
-//    }
-//    
-//    public void goToWelcomeView()
-//    {
+    }
+    
+    public void goToWelcomeView()
+    {
 //    	MySurfaceView mView=new MySurfaceView(this);
 //    	setContentView(mView);
-//    }
-//    
-//    public void goToMainMenu()
-//    {
+    }
+    
+    public void goToMainMenu()
+    {
 //    	if(mmv==null)
 //    	{
 //    		mmv=new MainMenuView(this);
 //    	}
-//    	
+    	
 //    	setContentView(mmv);
-//    	
-//    	curr=WhichView.MAIN_MENU;
-//    }
-//    
-//    public void gotoIpView()
-//    {
-//    	
+    	
+    	curr=WhichView.MAIN_MENU;
+    }
+    
+    public void gotoIpView()
+    {
+    	
 //    	setContentView(R.layout.main);   
 //    	final Button dlu=(Button)this.findViewById(R.id.button01);
 //    	final Button chz=(Button)this.findViewById(R.id.button02);
@@ -191,13 +191,13 @@
 //        );
 //    	
 //        curr=WhichView.IP_VIEW;
-//    	
-//    }
-//   
-//    
-//    
-//    public void gotoloseView()
-//    {
+    	
+    }
+   
+    
+    
+    public void gotoloseView()
+    {
 //    	setContentView(R.layout.lose); 
 //    	final EditText tvXH=(EditText)RootActivity.this.findViewById(R.id.loseXH);
 //    	final EditText tvMM=(EditText)RootActivity.this.findViewById(R.id.loseMM);
@@ -263,12 +263,12 @@
 //    	);
 //    	   	
 //    	curr=WhichView.LOSE_VIEW;
-//    			
-//		 
-//    }
-//    
-//    public void gotoloseinfoView()
-//    {
+    			
+		 
+    }
+    
+    public void gotoloseinfoView()
+    {
 //    	setContentView(R.layout.loseinfo);
 //    	
 //    	GridView gvlose=(GridView)RootActivity.this.findViewById(R.id.GridViewlose01);
@@ -329,10 +329,10 @@
 //    		}
 //    	);
 //    	curr=WhichView.LOSE_INFO_VIEW;
-//    }
-//    //掛失界面的詳細界面
-//    public void gotolosedetailsView()
-//    {
+    }
+    //掛失界面的詳細界面
+    public void gotolosedetailsView()
+    {
 //    	setContentView(R.layout.lose_details_info);
 //    	
 //    	
@@ -395,11 +395,11 @@
 //    	);
 //    	
 //    	curr=WhichView.LOSE_DETAILS_VIEW;
-//    	
-//    }
-//     
-//    public void gotoyuyueView()
-//    {
+    	
+    }
+     
+    public void gotoyuyueView()
+    {
 //    	setContentView(R.layout.yuyue);   	
 //    	final EditText yuyueEditSH=(EditText)RootActivity.this.findViewById(R.id.yuyueEditSH);
 //    	Button orderbook=(Button)RootActivity.this.findViewById(R.id.yuyuequery01);//預約圖書的按鈕
@@ -561,11 +561,11 @@
 //    		}
 //    	);
 //    	curr=WhichView.YUYUE_MANAGE;
-//    }
-// 
-//    public void gotomanagedetailsView()
-//    {
-//    	
+    }
+ 
+    public void gotomanagedetailsView()
+    {
+    	
 //    	if(manageInfo.get(5).toString().equals("是"))
 //   	    {
 //    		setContentView(R.layout.yuyuemanagedetails1);
@@ -619,9 +619,10 @@
 //        	);
 //    	
 //    	curr=WhichView.MANAGE_DETAILS_VIEW;
-//    }
-//    public void gotoyuyuedetails()
-//    {   	
+    }
+    
+    public void gotoyuyuedetails()
+    {   	
 //    	if(yuyuedetails1.get(1).toString().trim().equals("是"))
 //    	{
 //    		setContentView(R.layout.yuyuedetails1);
@@ -724,11 +725,11 @@
 //    	
 //
 //    	curr=WhichView.YUYUEDETAILS;
-//    }
-//    
-//    //圖書查詢主界面
-//    public void gotoQueryMainView()
-//    {
+    }
+    
+    //圖書查詢主界面
+    public void gotoQueryMainView()
+    {
 //    	setContentView(R.layout.self_or_query);
 //    	//後退按鈕的設置監聽
 //    	ImageButton selfib=(ImageButton)RootActivity.this.findViewById(R.id.ImageButtonself_query);
@@ -801,9 +802,10 @@
 //    	selfgenerateDataList(selfQuery);
 //		gr.setAdapter(selfgridView(selfQuery));   	
 //    	curr=WhichView.SELF_VIEW_INFO;
-//    }
-//    public void gotoQueryView()
-//    {
+    }
+    
+    public void gotoQueryView()
+    {
 //    	setContentView(R.layout.query);
 //    	final Spinner sp=(Spinner)findViewById(R.id.Spinner01);
 //    	List<CItem > lst = new ArrayList<CItem>();
@@ -975,10 +977,10 @@
 //        
 //        
 //        curr=WhichView.QUERY_VIEW;
-//    }
-//    
-//    public void gotogirdView()
-//    {
+    }
+    
+    public void gotogirdView()
+    {
 //    	setContentView(R.layout.grid_main);      	    	
 //		GridView gv=(GridView)findViewById(R.id.GridView01);
 //		generateDataList(queryTOgird,resultnumdetails);
@@ -1046,10 +1048,10 @@
 //        );
 //        
 //        curr=WhichView.GIRD_VIEW;
-//    }
-//    
-//    public void gotodetaislView()
-//    {
+    }
+    
+    public void gotodetaislView()
+    {
 //    	setContentView(R.layout.detials);   	
 //    	TextView t1=(TextView)RootActivity.this.findViewById(R.id.TextViewdetails01);
 //    	TextView t2=(TextView)RootActivity.this.findViewById(R.id.TextViewdetails02);
@@ -1090,27 +1092,27 @@
 //		);
 //		//tvdetails.setText(girddetail.get(2));
 //		curr=WhichView.DETIALSVIEW;
-//    }
-//    
-//    //個人借書的要調用的方法
-//    public List<? extends Map<String, ?>> selfgenerateDataList(Vector<String> v)
-//     		{
-//     	    	ArrayList<Map<String,Object>> list=new ArrayList<Map<String,Object>>();;
-//     	    	int rowCounter=v.size()/7;//得到表格的行數
-//     	    	for(int i=0;i<rowCounter;i++)
-//     	    	{//循環生成每行的包含對應各個列數據的Map；col1、col2、col3為列名
-//     	    		HashMap<String,Object> hmap=new HashMap<String,Object>();
-//     	    		hmap.put("col1", v.get(i*7+0));   //第一列為書號		
-//     	    		hmap.put("col2", v.get(i*7+3));//第二例為ISBN
-//     	    		hmap.put("col3", v.get(i*7+4));//第三列為書名
-//     	    		hmap.put("col4", v.get(i*7+5));//第四列為作者
-//     	    		hmap.put("col5", v.get(i*7+6));//第五列為出版社
-//     	    		hmap.put("col6", v.get(i*7+1));
-//     	    		hmap.put("col7", v.get(i*7+2));
-//     	    		list.add(hmap);
-//     	    	}    	
-//     	    	return list;
-//     		}
+    }
+    
+    //個人借書的要調用的方法
+    public List<? extends Map<String, ?>> selfgenerateDataList(Vector<String> v)
+     		{
+     	    	ArrayList<Map<String,Object>> list=new ArrayList<Map<String,Object>>();;
+     	    	int rowCounter=v.size()/7;//得到表格的行數
+     	    	for(int i=0;i<rowCounter;i++)
+     	    	{//循環生成每行的包含對應各個列數據的Map；col1、col2、col3為列名
+     	    		HashMap<String,Object> hmap=new HashMap<String,Object>();
+     	    		hmap.put("col1", v.get(i*7+0));   //第一列為書號		
+     	    		hmap.put("col2", v.get(i*7+3));//第二例為ISBN
+     	    		hmap.put("col3", v.get(i*7+4));//第三列為書名
+     	    		hmap.put("col4", v.get(i*7+5));//第四列為作者
+     	    		hmap.put("col5", v.get(i*7+6));//第五列為出版社
+     	    		hmap.put("col6", v.get(i*7+1));
+     	    		hmap.put("col7", v.get(i*7+2));
+     	    		list.add(hmap);
+     	    	}    	
+     	    	return list;
+     		}
 //    public BaseAdapter selfgridView(Vector<String> v)
 //    {
 //    	SimpleAdapter sca=new SimpleAdapter
@@ -1124,57 +1126,57 @@
 //    	return sca;
 //       // gv.setAdapter(sca);//為GridView設置數據適配器    	    	
 //    }
-//    
-//    //等到表格的行數等得到的表格的基本信息
-//     public List<? extends Map<String, ?>> generateDataList(Vector<String> v,Vector<Integer> num)
-//    		{
-//    	    	ArrayList<Map<String,Object>> list=new ArrayList<Map<String,Object>>();;
-//    	    	int rowCounter=v.size()/4;//得到表格的行數
-//    	    	for(int i=0;i<rowCounter;i++)
-//    	    	{//循環生成每行的包含對應各個列數據的Map；col1、col2、col3為列名
-//    	    		HashMap<String,Object> hmap=new HashMap<String,Object>();
-//    	    		hmap.put("col1", v.get(i*4+0));   //第一列為ISBN		
-//    	    		hmap.put("col2", num.get(i));//第二例為一種ISBN書的數量
-//    	    		hmap.put("col3", v.get(i*4+1));//第三列為書名
-//    	    		hmap.put("col4", v.get(i*4+2));//第四列為作者
-//    	    		hmap.put("col5", v.get(i*4+3));//第五列為出版社
-//    	    		//hmap.put("col6", v.get(i*6+5));//第六列列為是否預覽
-//    	    		list.add(hmap);
-//    	    	}    	
-//    	    	return list;
-//    		}
-//     public List<? extends Map<String, ?>> generateDataList(Vector<String> v)
-//     		{
-//     	    	ArrayList<Map<String,Object>> list=new ArrayList<Map<String,Object>>();;
-//     	    	int rowCounter=v.size()/7;//得到表格的行數
-//     	    	for(int i=0;i<rowCounter;i++)
-//     	    	{//循環生成每行的包含對應各個列數據的Map；col1、col2、col3為列名
-//     	    		HashMap<String,Object> hmap=new HashMap<String,Object>();
-//     	    		hmap.put("col1", v.get(i*7+0));   //第一列為書號		
-//     	    		hmap.put("col2", v.get(i*7+3));//第二例為ISBN
-//     	    		hmap.put("col3", v.get(i*7+4));//第三列為書名
-//     	    		hmap.put("col4", v.get(i*7+5));//第四列為作者
-//     	    		hmap.put("col5", v.get(i*7+6));//第五列為出版社     	    		
-//     	    		list.add(hmap);
-//     	    	}    	
-//     	    	return list;
-//     		}
-//     
-//     public List<? extends Map<String, ?>> generateDataList1(Vector<String> v,Vector<String> vv)
-//    		{
-//    	    	ArrayList<Map<String,Object>> list=new ArrayList<Map<String,Object>>();;
-//    	    	int rowCounter=v.size()/4;//得到表格的行數
-//    	    	for(int i=0;i<rowCounter;i++)
-//    	    	{//循環生成每行的包含對應各個列數據的Map；col1、col2、col3為列名
-//    	    		HashMap<String,Object> hmap=new HashMap<String,Object>();
-//    	    		hmap.put("col1", v.get(i*4+0));   //第一列為書號	
-//    	    		hmap.put("col2", v.get(i*4+1));//第二例書名   	    		
-//    	    		hmap.put("col3", v.get(i*4+2));//第四列是否借閱    	    		  	    		
-//    	    		list.add(hmap);
-//    	    	}    	
-//    	    	return list;
-//    		}
-//    
+    
+    //等到表格的行數等得到的表格的基本信息
+     public List<? extends Map<String, ?>> generateDataList(Vector<String> v,Vector<Integer> num)
+    		{
+    	    	ArrayList<Map<String,Object>> list=new ArrayList<Map<String,Object>>();;
+    	    	int rowCounter=v.size()/4;//得到表格的行數
+    	    	for(int i=0;i<rowCounter;i++)
+    	    	{//循環生成每行的包含對應各個列數據的Map；col1、col2、col3為列名
+    	    		HashMap<String,Object> hmap=new HashMap<String,Object>();
+    	    		hmap.put("col1", v.get(i*4+0));   //第一列為ISBN		
+    	    		hmap.put("col2", num.get(i));//第二例為一種ISBN書的數量
+    	    		hmap.put("col3", v.get(i*4+1));//第三列為書名
+    	    		hmap.put("col4", v.get(i*4+2));//第四列為作者
+    	    		hmap.put("col5", v.get(i*4+3));//第五列為出版社
+    	    		//hmap.put("col6", v.get(i*6+5));//第六列列為是否預覽
+    	    		list.add(hmap);
+    	    	}    	
+    	    	return list;
+    		}
+     public List<? extends Map<String, ?>> generateDataList(Vector<String> v)
+     		{
+     	    	ArrayList<Map<String,Object>> list=new ArrayList<Map<String,Object>>();;
+     	    	int rowCounter=v.size()/7;//得到表格的行數
+     	    	for(int i=0;i<rowCounter;i++)
+     	    	{//循環生成每行的包含對應各個列數據的Map；col1、col2、col3為列名
+     	    		HashMap<String,Object> hmap=new HashMap<String,Object>();
+     	    		hmap.put("col1", v.get(i*7+0));   //第一列為書號		
+     	    		hmap.put("col2", v.get(i*7+3));//第二例為ISBN
+     	    		hmap.put("col3", v.get(i*7+4));//第三列為書名
+     	    		hmap.put("col4", v.get(i*7+5));//第四列為作者
+     	    		hmap.put("col5", v.get(i*7+6));//第五列為出版社     	    		
+     	    		list.add(hmap);
+     	    	}    	
+     	    	return list;
+     		}
+     
+     public List<? extends Map<String, ?>> generateDataList1(Vector<String> v,Vector<String> vv)
+    		{
+    	    	ArrayList<Map<String,Object>> list=new ArrayList<Map<String,Object>>();;
+    	    	int rowCounter=v.size()/4;//得到表格的行數
+    	    	for(int i=0;i<rowCounter;i++)
+    	    	{//循環生成每行的包含對應各個列數據的Map；col1、col2、col3為列名
+    	    		HashMap<String,Object> hmap=new HashMap<String,Object>();
+    	    		hmap.put("col1", v.get(i*4+0));   //第一列為書號	
+    	    		hmap.put("col2", v.get(i*4+1));//第二例書名   	    		
+    	    		hmap.put("col3", v.get(i*4+2));//第四列是否借閱    	    		  	    		
+    	    		list.add(hmap);
+    	    	}    	
+    	    	return list;
+    		}
+    
 //    public BaseAdapter gridView(Vector<String> v,Vector<Integer> result)
 //    {
 //    	SimpleAdapter sca=new SimpleAdapter
@@ -1188,7 +1190,7 @@
 //    	return sca;
 //       // gv.setAdapter(sca);//為GridView設置數據適配器    	    	
 //    }
-//    
+    
 //    public BaseAdapter gridView1(Vector<String> v,Vector<String> vv)
 //    {
 //    	SimpleAdapter sca=new SimpleAdapter
@@ -1202,182 +1204,182 @@
 //    	return sca;
 //       // gv.setAdapter(sca);//為GridView設置數據適配器    	    	
 //    }
-//          
-//    
-//    //後退按鈕的事件方法
-//       
-//    public boolean goback()
-//    {
-//    	if(curr==WhichView.QUERY_VIEW)
-//		{
-//    		gotoQueryMainView();	
-//			return true;
-//		}
-//		if(curr==WhichView.GIRD_VIEW)
-//		{
-//			gotoQueryView();
-//			return true;
-//		}
-//		if(curr==WhichView.DETIALSVIEW)
-//		{
-//			gotogirdView();
-//			return true;
-//		}
-//		if(curr==WhichView.YUYUE_VIEW||curr==WhichView.ABOUT_VIEW||curr==WhichView.HELP_VIEW)
-//		{
-//			goToMainMenu();	
-//			return true;
-//		}
-//		if(curr==WhichView.YUYUEDETAILS)
-//		{
-//			gotoyuyueView();
-//			return true;
-//		}
-//		if(curr==WhichView.YUYUE_MANAGE)
-//		{
-//			gotoyuyueView();
-//			return true;
-//		}
-//		if(curr==WhichView.LOSE_VIEW)
-//		{
-//			goToMainMenu();	
-//			return true;
-//		}
-//		if(curr==WhichView.LOSE_INFO_VIEW)
-//		{
-//			gotoloseView();
-//			return true;
-//		}
-//		if(curr==WhichView.LOSE_DETAILS_VIEW)
-//		{
-//			gotoloseinfoView();
-//			return true;
-//		}
-//		if(curr==WhichView.MANAGE_DETAILS_VIEW)
-//		{
+          
+    
+    //後退按鈕的事件方法
+       
+    public boolean goback()
+    {
+    	if(curr==WhichView.QUERY_VIEW)
+		{
+    		gotoQueryMainView();	
+			return true;
+		}
+		if(curr==WhichView.GIRD_VIEW)
+		{
+			gotoQueryView();
+			return true;
+		}
+		if(curr==WhichView.DETIALSVIEW)
+		{
+			gotogirdView();
+			return true;
+		}
+		if(curr==WhichView.YUYUE_VIEW||curr==WhichView.ABOUT_VIEW||curr==WhichView.HELP_VIEW)
+		{
+			goToMainMenu();	
+			return true;
+		}
+		if(curr==WhichView.YUYUEDETAILS)
+		{
+			gotoyuyueView();
+			return true;
+		}
+		if(curr==WhichView.YUYUE_MANAGE)
+		{
+			gotoyuyueView();
+			return true;
+		}
+		if(curr==WhichView.LOSE_VIEW)
+		{
+			goToMainMenu();	
+			return true;
+		}
+		if(curr==WhichView.LOSE_INFO_VIEW)
+		{
+			gotoloseView();
+			return true;
+		}
+		if(curr==WhichView.LOSE_DETAILS_VIEW)
+		{
+			gotoloseinfoView();
+			return true;
+		}
+		if(curr==WhichView.MANAGE_DETAILS_VIEW)
+		{
 //			gotoyuyueManage();
-//			return true;
-//		}
-//		if(curr==WhichView.QUERYMAIN_VIEW)
-//		{
-//			goToMainMenu();	
-//			return true;
-//		}
-//		if(curr==WhichView.SELF_VIEW_INFO)
-//		{
-//			gotoQueryMainView();	
-//			return true;
-//		}				
-//    	return false;
-//    	
-//    }
-//    
-//    //鍵盤上的返回鍵的監聽事件
-//    @Override
-//    public boolean onKeyDown(int keyCode,KeyEvent e)
-//    {
-//    	if(keyCode==4)//調製上一個界面的鍵
-//    	{//根據記錄的當前是哪個界面信息的curr可以知道要跳轉到的是哪個界面
-//    		if(curr==WhichView.QUERY_VIEW)
-//    		{
-//        		gotoQueryMainView();	
-//    			return true;
-//    		}    		
-//    		if(curr==WhichView.GIRD_VIEW)
-//    		{
-//    			gotoQueryView();
-//    			return true;
-//    		}
-//    		if(curr==WhichView.DETIALSVIEW)
-//    		{
-//    			gotogirdView();
-//    			return true;
-//    		}
-//    		if(curr==WhichView.YUYUE_VIEW||curr==WhichView.ABOUT_VIEW||curr==WhichView.HELP_VIEW)
-//    		{
-//    			goToMainMenu();	
-//    			return true;
-//    		}
-//    		if(curr==WhichView.YUYUEDETAILS)
-//    		{
-//    			gotoyuyueView();
-//    			return true;
-//    		}
-//    		if(curr==WhichView.YUYUE_MANAGE)
-//    		{
-//    			gotoyuyueView();
-//    			return true;
-//    		}
-//    		if(curr==WhichView.LOSE_VIEW)
-//    		{
-//    			goToMainMenu();	
-//    			return true;
-//    		}
-//    		if(curr==WhichView.LOSE_INFO_VIEW)
-//    		{
-//    			gotoloseView();
-//    			return true;
-//    		}
-//    		if(curr==WhichView.LOSE_DETAILS_VIEW)
-//    		{
-//    			gotoloseinfoView();
-//    			return true;
-//    		}
-//    		if(curr==WhichView.MANAGE_DETAILS_VIEW)
-//    		{
+			return true;
+		}
+		if(curr==WhichView.QUERYMAIN_VIEW)
+		{
+			goToMainMenu();	
+			return true;
+		}
+		if(curr==WhichView.SELF_VIEW_INFO)
+		{
+			gotoQueryMainView();	
+			return true;
+		}				
+    	return false;
+    	
+    }
+    
+    //鍵盤上的返回鍵的監聽事件
+    @Override
+    public boolean onKeyDown(int keyCode,KeyEvent e)
+    {
+    	if(keyCode==4)//調製上一個界面的鍵
+    	{//根據記錄的當前是哪個界面信息的curr可以知道要跳轉到的是哪個界面
+    		if(curr==WhichView.QUERY_VIEW)
+    		{
+        		gotoQueryMainView();	
+    			return true;
+    		}    		
+    		if(curr==WhichView.GIRD_VIEW)
+    		{
+    			gotoQueryView();
+    			return true;
+    		}
+    		if(curr==WhichView.DETIALSVIEW)
+    		{
+    			gotogirdView();
+    			return true;
+    		}
+    		if(curr==WhichView.YUYUE_VIEW||curr==WhichView.ABOUT_VIEW||curr==WhichView.HELP_VIEW)
+    		{
+    			goToMainMenu();	
+    			return true;
+    		}
+    		if(curr==WhichView.YUYUEDETAILS)
+    		{
+    			gotoyuyueView();
+    			return true;
+    		}
+    		if(curr==WhichView.YUYUE_MANAGE)
+    		{
+    			gotoyuyueView();
+    			return true;
+    		}
+    		if(curr==WhichView.LOSE_VIEW)
+    		{
+    			goToMainMenu();	
+    			return true;
+    		}
+    		if(curr==WhichView.LOSE_INFO_VIEW)
+    		{
+    			gotoloseView();
+    			return true;
+    		}
+    		if(curr==WhichView.LOSE_DETAILS_VIEW)
+    		{
+    			gotoloseinfoView();
+    			return true;
+    		}
+    		if(curr==WhichView.MANAGE_DETAILS_VIEW)
+    		{
 //    			gotoyuyueManage();
-//    			return true;
-//    		}
-//    		if(curr==WhichView.QUERYMAIN_VIEW)
-//    		{
-//    			goToMainMenu();	
-//    			return true;
-//    		}
-//    		if(curr==WhichView.SELF_VIEW_INFO)
-//    		{
-//    			gotoQueryMainView();	
-//    			return true;
-//    		}
-//    		
-//    	}
-//    	return false;
-//    	
-//    }
-//    
-//    public void toast()
-//    {    	
-//		Toast.makeText
-//		(
-//			RootActivity.this,
-//			"沒有查到與你輸入相關的資料！", 
-//			Toast.LENGTH_SHORT
-//		).show();										 
-//    }
-//    
-//    public void toast(Vector<String> v,Vector<Integer> vv)
-//    {
-//    	if(v.size()==0)
-//		{
-//			toast();								
-//		 }
-//		else 
-//		{
-//			for(int i=0;i<v.size()/4;i++)
-//	        {
+    			return true;
+    		}
+    		if(curr==WhichView.QUERYMAIN_VIEW)
+    		{
+    			goToMainMenu();	
+    			return true;
+    		}
+    		if(curr==WhichView.SELF_VIEW_INFO)
+    		{
+    			gotoQueryMainView();	
+    			return true;
+    		}
+    		
+    	}
+    	return false;
+    	
+    }
+    
+    public void toast()
+    {    	
+		Toast.makeText
+		(
+			RootActivity.this,
+			"沒有查到與你輸入相關的資料！", 
+			Toast.LENGTH_SHORT
+		).show();										 
+    }
+    
+    public void toast(Vector<String> v,Vector<Integer> vv)
+    {
+    	if(v.size()==0)
+		{
+			toast();								
+		 }
+		else 
+		{
+			for(int i=0;i<v.size()/4;i++)
+	        {
 //		         vv.add(DBUtil.getNumfrombdetailedInfo(v.get(i*4).toString().trim()));
-//	        }							    
-//	        gotogirdView();
-//		}
-//    	
-//    }
-//      
-//}
-//
-//
-//
-//
-//
-//
-//
-//
-//
+	        }							    
+	        gotogirdView();
+		}
+    	
+    }
+      
+}
+
+
+
+
+
+
+
+
+

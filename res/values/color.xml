@@ -8,7 +8,7 @@
 
     <drawable name="actionbar_background">#FFFF00</drawable>
     <!-- #F37D2A -->
-    <drawable name="background">#F1F5EF</drawable>
+    <!-- <drawable name="background">#F1F5EF</drawable> -->
     <drawable name="word">#0678A9</drawable>
     <drawable name="button">#0175BE</drawable>
     <drawable name="button_word">#F1F5EF</drawable>
