@@ -40,7 +40,7 @@ public class LoginActivity extends Activity {
 				Intent intent = new Intent();
 				intent.setClass(LoginActivity.this, MenuActivity.class);
 				startActivity(intent); 
-				LoginActivity.this.finish();
+//				LoginActivity.this.finish();
 			}
 		});
     }

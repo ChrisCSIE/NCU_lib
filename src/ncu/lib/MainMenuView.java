@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -28,22 +30,6 @@ import android.view.SurfaceView;
 	Bitmap bitmapOpeningHours;
 //	Bitmap logout;
 	
-	private float BUTTON_SEARCH_XOFFSET = 20;
-	private float BUTTON_SEARCH_YOFFSET = 20;
-	private float BUTTON_BORROWED_XOFFSET = 50;
-	private float BUTTON_BORROWED_YOFFSET = 50;
-//	private float BUTTON_REQUESTED_XOFFSET;
-//	private float BUTTON_REQUESTED_YOFFSET;
-//	private float BUTTON_NOTICE_XOFFSET;
-//	private float BUTTON_NOTICE_YOFFSET;
-//	private float BUTTON_NEWS_XOFFSET;
-//	private float BUTTON_NEWS_YOFFSET;
-//	private float BUTTON_NEWBOOK_XOFFSET;
-//	private float BUTTON_NEWBOOK_YOFFSET;
-//	private float BUTTON_OPENING_XOFFSET;
-//	private float BUTTON_OPENING_YOFFSET;
-	
-	
 	public MainMenuView(MenuActivity activity) {
 		super(activity);
 		this.activity=activity;
@@ -56,36 +42,54 @@ import android.view.SurfaceView;
 	{
 		bitmapSearch=BitmapFactory.decodeResource(getResources(), R.drawable.search);
 		bitmapBorrowed=BitmapFactory.decodeResource(getResources(), R.drawable.borrowed);
-//		bitmapRequested=BitmapFactory.decodeResource(getResources(), R.drawable.requested);
+		bitmapRequested=BitmapFactory.decodeResource(getResources(), R.drawable.requested);
 //		bitmapNotice=BitmapFactory.decodeResource(getResources(), R.drawable.notice);
-//		bitmapNews=BitmapFactory.decodeResource(getResources(), R.drawable.news);
-//		bitmapNewBook=BitmapFactory.decodeResource(getResources(), R.drawable.new_book);
-//		bitmapOpeningHours=BitmapFactory.decodeResource(getResources(), R.drawable.opening_hours);
+		bitmapNews=BitmapFactory.decodeResource(getResources(), R.drawable.news);
+		bitmapNewBook=BitmapFactory.decodeResource(getResources(), R.drawable.new_book);
+		bitmapOpeningHours=BitmapFactory.decodeResource(getResources(), R.drawable.opening_hours);
 //		logout=BitmapFactory.decodeResource(getResources(), R.drawable.logout);						
 	}
 	@Override
 	public void onDraw(Canvas canvas)
 	{
-		super.onDraw(canvas);	
+		super.onDraw(canvas);
+		// draw the background
 		canvas.drawColor(Color.WHITE);
-		canvas.drawBitmap(scaled, 0, 0, null); // draw the background
+//		canvas.drawBitmap(RescaledBackground(bitmap), 0, 0, null);
+		
+		float scale = getWidth()/4;
+		float xGap = (getWidth() - scale*2)/3;
+		float yGap = (getHeight() - scale*3)/4;
+		
+		float BUTTON_SEARCH_XOFFSET = xGap;
+		float BUTTON_SEARCH_YOFFSET = yGap;
+		float BUTTON_BORROWED_XOFFSET = xGap*2 + scale;
+		float BUTTON_BORROWED_YOFFSET = yGap;
+		float BUTTON_REQUESTED_XOFFSET = xGap;
+		float BUTTON_REQUESTED_YOFFSET = yGap*2 + scale;
+//		float BUTTON_NOTICE_XOFFSET = xGap*2 + scale;
+//		float BUTTON_NOTICE_YOFFSET = yGap*2 + scale;
+		float BUTTON_NEWS_XOFFSET = xGap*2 + scale;
+		float BUTTON_NEWS_YOFFSET = yGap*2 + scale;
+		float BUTTON_NEWBOOK_XOFFSET = xGap;
+		float BUTTON_NEWBOOK_YOFFSET = yGap*3 + scale*2;
+		float BUTTON_OPENING_XOFFSET = xGap*2 + scale;
+		float BUTTON_OPENING_YOFFSET = yGap*3 + scale*2;
 		
 		//館藏目錄
-    	canvas.drawBitmap(bitmapSearch, BUTTON_SEARCH_XOFFSET, BUTTON_SEARCH_YOFFSET, null);
+		canvas.drawBitmap(Rescaled(bitmapSearch), BUTTON_SEARCH_XOFFSET, BUTTON_SEARCH_YOFFSET, null);
     	//借書記錄
-    	canvas.drawBitmap(bitmapBorrowed, BUTTON_BORROWED_XOFFSET, BUTTON_BORROWED_YOFFSET, null);
+    	canvas.drawBitmap(Rescaled(bitmapBorrowed), BUTTON_BORROWED_XOFFSET, BUTTON_BORROWED_YOFFSET, null);
     	//預約書目
-//    	canvas.drawBitmap(bitmapRequested, BUTTON_REQUESTED_XOFFSET, BUTTON_REQUESTED_YOFFSET, null);
+    	canvas.drawBitmap(Rescaled(bitmapRequested), BUTTON_REQUESTED_XOFFSET, BUTTON_REQUESTED_YOFFSET, null);
 //    	//通知
-//    	canvas.drawBitmap(bitmapNotice, BUTTON_NOTICE_XOFFSET, BUTTON_NOTICE_YOFFSET, null);
+//    	canvas.drawBitmap(Rescaled(bitmapNotice), BUTTON_NOTICE_XOFFSET, BUTTON_NOTICE_YOFFSET, null);
 //    	//最新消息
-//    	canvas.drawBitmap(bitmapNews, BUTTON_NEWS_XOFFSET, BUTTON_NEWS_YOFFSET, null);
+    	canvas.drawBitmap(Rescaled(bitmapNews), BUTTON_NEWS_XOFFSET, BUTTON_NEWS_YOFFSET, null);
 //    	//新書推薦
-//    	canvas.drawBitmap(bitmapNewBook, BUTTON_NEWBOOK_XOFFSET, BUTTON_NEWBOOK_YOFFSET, null);
+    	canvas.drawBitmap(Rescaled(bitmapNewBook), BUTTON_NEWBOOK_XOFFSET, BUTTON_NEWBOOK_YOFFSET, null);
 //		//開館時間
-//		canvas.drawBitmap(bitmapOpeningHours, BUTTON_OPENING_XOFFSET, BUTTON_OPENING_YOFFSET, null);
-    	//蛁种偌聽
-//    	canvas.drawBitmap(logout, BUTTON_LOGOUT_XOFFSET, BUTTON_LOGOUT_YOFFSET, null);
+		canvas.drawBitmap(Rescaled(bitmapOpeningHours), BUTTON_OPENING_XOFFSET, BUTTON_OPENING_YOFFSET, null);
 	}
 	@Override
 	public boolean onTouchEvent(MotionEvent e)
@@ -145,11 +149,6 @@ import android.view.SurfaceView;
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) 
 	{
-		Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.main_background);
-	    float scale = (float)background.getHeight()/(float)getHeight();
-	    int newWidth = Math.round(background.getWidth()/scale);
-	    int newHeight = Math.round(background.getHeight()/scale);
-	    scaled = Bitmap.createScaledBitmap(background, newWidth, newHeight, true);
 		repaint();
 	}
 	@Override
@@ -157,6 +156,7 @@ import android.view.SurfaceView;
 	{
 		
 	}
+	
 	public void repaint()
 	{
 		SurfaceHolder holder=this.getHolder();
@@ -172,5 +172,22 @@ import android.view.SurfaceView;
 				holder.unlockCanvasAndPost(canvas);
 			}
 		}
+	}
+	
+	public Bitmap Rescaled(Bitmap bitmap) {
+		Bitmap scaled = null;
+		int newWidth = getWidth()/4;
+		int newHeight = newWidth;
+	    scaled = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true);
+		return scaled;
+	}
+	
+	public Bitmap RescaledBackground(Bitmap bitmap) {
+		Bitmap scaled = null;
+	    float scale = (float)bitmap.getHeight()/(float)getHeight();
+	    int newWidth = Math.round(bitmap.getWidth()/scale);
+	    int newHeight = Math.round(bitmap.getHeight()/scale);
+	    scaled = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true);
+		return scaled;
 	}
 }
