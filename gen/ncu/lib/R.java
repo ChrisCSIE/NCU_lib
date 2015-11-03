@@ -62,9 +62,10 @@ public final class R {
     public static final class id {
         public static final int account=0x7f080002;
         public static final int accountLinearLayout=0x7f080001;
-        public static final int action_settings=0x7f080007;
-        public static final int clear=0x7f080006;
-        public static final int login=0x7f080005;
+        public static final int action_settings=0x7f080008;
+        public static final int autoLogin=0x7f080005;
+        public static final int clean=0x7f080007;
+        public static final int login=0x7f080006;
         public static final int pwd=0x7f080004;
         public static final int pwdLinearLayout=0x7f080003;
         public static final int welcome=0x7f080000;
@@ -82,6 +83,8 @@ public final class R {
         public static final int action_settings=0x7f050002;
         public static final int app_name=0x7f050000;
         public static final int hello_world=0x7f050001;
+        public static final int logining=0x7f050007;
+        public static final int network_issue=0x7f050006;
         public static final int title_activity_main_menu_view=0x7f050003;
         public static final int title_activity_menu=0x7f050005;
         public static final int title_activity_root=0x7f050004;

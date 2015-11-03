@@ -1,5 +1,7 @@
-package ncu.lib;
+package ncu.lib.activity;
 
+import ncu.lib.R;
+import ncu.lib.R.drawable;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;

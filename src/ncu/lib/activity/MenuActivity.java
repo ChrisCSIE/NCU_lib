@@ -1,7 +1,10 @@
-package ncu.lib;
+package ncu.lib.activity;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import ncu.lib.R;
+import ncu.lib.R.drawable;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -23,7 +26,9 @@ public class MenuActivity extends Activity {
 		// getActionBar().hide();
 		setContentView(new MainMenuView(MenuActivity.this));
 	}
-
+	
+	
+	/* 按兩次退出才結束APP */
 	Timer timerExit = new Timer();
 	TimerTask task = new TimerTask() {
 		@Override

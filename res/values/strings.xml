@@ -7,5 +7,7 @@
     <string name="title_activity_main_menu_view">MainMenuView</string>
     <string name="title_activity_root">RootActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
+    <string name="network_issue">Network Unavailable</string>
+    <string name="logining">登入中...</string>
 
 </resources>
