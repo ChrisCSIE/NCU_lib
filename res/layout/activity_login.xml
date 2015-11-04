@@ -91,7 +91,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical|right"
                 android:text="密 碼: "
                 android:textColor="#000000"
                 android:textSize="19dip" />
@@ -103,7 +102,7 @@
                 android:background="@drawable/edittext_style"
                 android:minWidth="180px"
                 android:password="true"
-                android:textSize="16dip" />
+                android:textSize="   16dip" />
         </LinearLayout>
 
         <LinearLayout
