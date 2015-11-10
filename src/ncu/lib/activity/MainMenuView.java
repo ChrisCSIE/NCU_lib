@@ -4,6 +4,7 @@ import ncu.lib.R;
 import ncu.lib.R.drawable;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -141,6 +142,11 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 					&& y < BUTTON_SEARCH_YOFFSET + scale) {
 				// activity.hd.sendEmptyMessage(1);
 				Log.d("SEARCH", "SEARCH Button");
+				// start SearchActivity 
+				Intent intent = new Intent();
+				intent.setClass(activity,
+						SearchActivity.class);
+				activity.startActivity(intent);
 			}
 			if (x > BUTTON_BORROWED_XOFFSET && x < BUTTON_BORROWED_XOFFSET + scale && y > BUTTON_BORROWED_YOFFSET
 					&& y < BUTTON_BORROWED_YOFFSET + scale) {

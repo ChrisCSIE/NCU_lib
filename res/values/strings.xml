@@ -8,6 +8,13 @@
     <string name="title_activity_root">RootActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="network_issue">Network Unavailable</string>
-    <string name="logining">登入中...</string>
+    <string name="logining">登入中，請耐心等候</string>
+    <string name="search_button">Search</string>
+    <string name="search_description">Start to Search!</string>
+    <string name="search_hint">Insert keywords ...</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_book_list">BookListActivity</string>
+    <string name="prev">Prev</string>
+    <string name="next">Next</string>
 
 </resources>

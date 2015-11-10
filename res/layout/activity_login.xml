@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/homepage_background"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:id="@+id/loginLayout" >
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -68,6 +69,7 @@
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/edittext_style"
                 android:minWidth="180px"
+                android:singleLine="true"
                 android:text=""
                 android:textSize="16dip" />
         </LinearLayout>
@@ -102,6 +104,7 @@
                 android:background="@drawable/edittext_style"
                 android:minWidth="180px"
                 android:password="true"
+                android:singleLine="true"
                 android:textSize="   16dip" />
         </LinearLayout>
 
