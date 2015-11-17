@@ -35,13 +35,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 public class LoginActivity extends Activity {
-	Button login, clean;
-	EditText account, pwd;
-	ImageView welcome;
-	CheckBox autoLogin;
-	private static Boolean isExit = false;
-	private static Boolean hasTask = false;
-	private static LinearLayout loginLayout;
+	private Button login, clean;
+	private EditText account, pwd;
+	private ImageView welcome;
+	private CheckBox autoLogin;
+	private Boolean isExit = false;
+	private Boolean hasTask = false;
+	private LinearLayout loginLayout;
 	private SharedPreferences mSettings;
 	ProgressDialog pd;
 
@@ -103,6 +103,9 @@ public class LoginActivity extends Activity {
 
 			String user = account.getText().toString();
 			String passwd = pwd.getText().toString();
+
+			pd = ProgressDialog.show(LoginActivity.this, "", getResources()
+					.getString(R.string.logining));
 
 			if (autoLogin.isChecked()) {
 				editor.remove("user");
@@ -175,13 +178,10 @@ public class LoginActivity extends Activity {
 			// LoginActivity.this.finish();
 			// }
 
-			pd = ProgressDialog.show(LoginActivity.this, "", getResources()
-					.getString(R.string.logining));
-
 			new Thread() {
 				public void run() {
 					try {
-						sleep(1500);
+						sleep(500);
 						if (GlobalStaticVariable.global.isLogin()) {
 							// finish LoginActivity, start MenuActivity
 							Intent intent = new Intent();

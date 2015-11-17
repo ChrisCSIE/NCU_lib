@@ -1,5 +1,7 @@
-package ncu.lib;
+package ncu.lib.activity;
 
+import ncu.lib.R;
+import ncu.lib.R.layout;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;

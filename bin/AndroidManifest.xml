@@ -44,7 +44,7 @@
             android:label="@string/title_activity_search" >
         </activity>
         <activity
-            android:name=".BookListActivity"
+            android:name="ncu.lib.activity.BookListActivity"
             android:label="@string/title_activity_book_list" >
         </activity>
     </application>
