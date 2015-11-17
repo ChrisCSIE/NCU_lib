@@ -181,7 +181,7 @@ public class LoginActivity extends Activity {
 			new Thread() {
 				public void run() {
 					try {
-						sleep(500);
+						sleep(1000);
 						if (GlobalStaticVariable.global.isLogin()) {
 							// finish LoginActivity, start MenuActivity
 							Intent intent = new Intent();

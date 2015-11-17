@@ -14,13 +14,19 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.inputmethod.InputMethodManager;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -37,6 +43,7 @@ public class SearchActivity extends Activity {
     private ArrayList<String> mBookNameList;
     private ArrayList<String> mBookIDList;
     private String mQueryString;
+    private RelativeLayout loadingPanel, searchLayout;
 
     RequestQueue mQueue;
 
@@ -47,17 +54,47 @@ public class SearchActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		
 		mListView = (ListView) findViewById(R.id.bookListView);
 		keyword = (EditText)findViewById(R.id.keyword);
 		searchButton = (Button)findViewById(R.id.search_button);
-		
-		if(mQueryString == null) {
-            mQueryString = keyword.getText().toString();
-        }
 		searchButton.setOnClickListener(searchEvent);
 		
-		
+
+        mBookIDList = new ArrayList<String>();
+        mBookNameList = new ArrayList<String>();
+        mListAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_list_item_1, mBookNameList);
+
+        mQueue = VolleyProvider.getQueue(SearchActivity.this);
+
+
+        mListView.setAdapter(mListAdapter);
+        mListView.setOnItemClickListener(mBookClickListener);
+
+        Button nextBtn = (Button) findViewById(R.id.next);
+        Button prevBtn = (Button) findViewById(R.id.prev);
+
+        nextBtn.setOnClickListener(mButtonOnClick);
+        prevBtn.setOnClickListener(mButtonOnClick);
+
+        nextBtn.setClickable(false);
+        prevBtn.setClickable(false);
+        
+        loadingPanel = (RelativeLayout)findViewById(R.id.loadingPanel);
+        loadingPanel.setVisibility(View.GONE);
+        
+        searchLayout = (RelativeLayout)findViewById(R.id.searchLayout);
+        searchLayout.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(keyword.getWindowToken(), 0);
+//				imm.hideSoftInputFromWindow(searchButton.getWindowToken(), 0);
+				return false;
+			}
+		});
 	}
 	
 	private OnClickListener searchEvent = new OnClickListener() {
@@ -65,30 +102,17 @@ public class SearchActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-	        mBookIDList = new ArrayList<String>();
-	        mBookNameList = new ArrayList<String>();
-	        mListAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_list_item_1, mBookNameList);
-
-	        mQueue = VolleyProvider.getQueue(SearchActivity.this);
+			
+//			if(mQueryString == null) {
+	            mQueryString = keyword.getText().toString();
+//	        }
 
 	        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
 	                Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString,
 	                null, mResponseListener, mErrorListener);
 
 	        mQueue.add(jsonObjectRequest);
-
-
-	        mListView.setAdapter(mListAdapter);
-	        mListView.setOnItemClickListener(mBookClickListener);
-
-	        Button nextBtn = (Button) findViewById(R.id.next);
-	        Button prevBtn = (Button) findViewById(R.id.prev);
-
-	        nextBtn.setOnClickListener(mButtonOnClick);
-	        prevBtn.setOnClickListener(mButtonOnClick);
-
-	        nextBtn.setClickable(false);
-	        prevBtn.setClickable(false);
+	        loadingPanel.setVisibility(View.VISIBLE);
 		}
 	};
 	
@@ -98,7 +122,7 @@ public class SearchActivity extends Activity {
             switch (view.getId()) {
                 case R.id.next:
                     if(!mNext.isEmpty()) {
-                        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+                    	loadingPanel.setVisibility(View.VISIBLE);
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                                 Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString + "&url=" + mNext, null, mResponseListener, mErrorListener);
                         mQueue.add(jsonObjectRequest);
@@ -109,7 +133,7 @@ public class SearchActivity extends Activity {
 
                 case R.id.prev:
                     if(!mPrev.isEmpty()) {
-                        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+                    	loadingPanel.setVisibility(View.VISIBLE);
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                                 Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString + "&url=" + mPrev, null, mResponseListener, mErrorListener);
                         mQueue.add(jsonObjectRequest);
@@ -131,7 +155,7 @@ public class SearchActivity extends Activity {
             intent.putExtra("bookName", mBookNameList.get(i));
             intent.setClassName("tw.edu.ncu.nculibrary", "tw.edu.ncu.nculibrary.BookDetailActivity");
 
-            startActivityForResult(intent, 1);
+//            startActivityForResult(intent, 1);
         }
     };
 
@@ -155,18 +179,17 @@ public class SearchActivity extends Activity {
                 JSONArray bookJSONArray = jsonObject.getJSONArray("books");
                 for (int i = 0; i < bookJSONArray.length(); ++i) {
                     JSONObject temp = bookJSONArray.getJSONObject(i);
-
                     mBookNameList.add(i, temp.getString("booktitle"));
                     mBookIDList.add(i, temp.getString("url"));
 
                     mListAdapter.notifyDataSetChanged();
 
-                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                    loadingPanel.setVisibility(View.GONE);
                 }
                 if(mListAdapter != null)
                     mListAdapter.notifyDataSetChanged();
 
-                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                loadingPanel.setVisibility(View.GONE);
 
                 Button prevBtn = (Button) findViewById(R.id.prev);
                 Button nextBtn = (Button) findViewById(R.id.next);
@@ -180,4 +203,12 @@ public class SearchActivity extends Activity {
 
         }
     };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mQueue != null) {
+            mQueue.cancelAll(this);
+        }
+    }
 }
