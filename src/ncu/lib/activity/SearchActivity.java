@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -90,8 +91,8 @@ public class SearchActivity extends Activity {
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(keyword.getWindowToken(), 0);
-//				imm.hideSoftInputFromWindow(searchButton.getWindowToken(), 0);
+//				imm.hideSoftInputFromWindow(keyword.getWindowToken(), 0);
+				imm.hideSoftInputFromWindow(searchButton.getWindowToken(), 0);
 				return false;
 			}
 		});
@@ -102,17 +103,21 @@ public class SearchActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			
-//			if(mQueryString == null) {
-	            mQueryString = keyword.getText().toString();
-//	        }
+			InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(searchButton.getWindowToken(), 0);
 
-	        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-	                Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString,
-	                null, mResponseListener, mErrorListener);
-
-	        mQueue.add(jsonObjectRequest);
-	        loadingPanel.setVisibility(View.VISIBLE);
+            mQueryString = keyword.getText().toString();
+			if(mQueryString.equals("")) {
+				Toast.makeText(SearchActivity.this, "請輸入關鍵字", Toast.LENGTH_SHORT).show();
+	        }
+			else {
+		        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+		                Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString,
+		                null, mResponseListener, mErrorListener);
+	
+		        mQueue.add(jsonObjectRequest);
+		        loadingPanel.setVisibility(View.VISIBLE);
+			}
 		}
 	};
 	
@@ -126,6 +131,7 @@ public class SearchActivity extends Activity {
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                                 Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString + "&url=" + mNext, null, mResponseListener, mErrorListener);
                         mQueue.add(jsonObjectRequest);
+                        mListView.setSelection(0);
                     } else {
                         Toast.makeText(SearchActivity.this, "No more!", Toast.LENGTH_SHORT).show();
                     }
@@ -137,6 +143,7 @@ public class SearchActivity extends Activity {
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                                 Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString + "&url=" + mPrev, null, mResponseListener, mErrorListener);
                         mQueue.add(jsonObjectRequest);
+                        mListView.setSelection(0);
                     } else {
                         Toast.makeText(SearchActivity.this, "No more!", Toast.LENGTH_SHORT).show();
                     }
@@ -211,4 +218,20 @@ public class SearchActivity extends Activity {
             mQueue.cancelAll(this);
         }
     }
+    
+    /* 旋轉螢幕不刷新
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // 什麼都不用寫
+        	if(mListAdapter != null)
+                mListAdapter.notifyDataSetChanged();
+        }
+        else {
+            // 什麼都不用寫
+        	
+        }
+    } */
 }

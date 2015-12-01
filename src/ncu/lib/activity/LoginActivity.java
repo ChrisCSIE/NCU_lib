@@ -16,6 +16,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +26,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -35,15 +38,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 public class LoginActivity extends Activity {
+	private boolean debugMode = true;
 	private Button login, clean;
 	private EditText account, pwd;
 	private ImageView welcome;
 	private CheckBox autoLogin;
 	private Boolean isExit = false;
 	private Boolean hasTask = false;
+	private FrameLayout welcomeLayout;
 	private LinearLayout loginLayout;
 	private SharedPreferences mSettings;
-	ProgressDialog pd;
+	private ProgressDialog pd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +75,7 @@ public class LoginActivity extends Activity {
 
 		// getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_background));
 		
-		/* if previous login checked "save the account and password"*/
+		/* if previous login checked "save account and password"*/
 		if (isAutoLogin()) {
 			account.setText(mSettings.getString("user", null)); // if saved, show account. else show ""
 			pwd.setText(mSettings.getString("passwd", null)); // if saved, show passwd. else show ""
@@ -90,6 +95,8 @@ public class LoginActivity extends Activity {
 		clean = (Button) findViewById(R.id.clean);
 		autoLogin = (CheckBox) findViewById(R.id.autoLogin);
 		loginLayout = (LinearLayout) findViewById(R.id.loginLayout);
+		
+		welcomeLayout = (FrameLayout) findViewById(R.id.welcomeLayout);
 	}
 
 	private OnClickListener loginEvent = new OnClickListener() {
@@ -103,9 +110,6 @@ public class LoginActivity extends Activity {
 
 			String user = account.getText().toString();
 			String passwd = pwd.getText().toString();
-
-			pd = ProgressDialog.show(LoginActivity.this, "", getResources()
-					.getString(R.string.logining));
 
 			if (autoLogin.isChecked()) {
 				editor.remove("user");
@@ -127,7 +131,19 @@ public class LoginActivity extends Activity {
 			// (NcuLibraryApplication) getApplicationContext();
 			// final NcuLibraryApplication global = new
 			// NcuLibraryApplication();
+			
+			if (debugMode){
+				// start MenuActivity, finish LoginActivity
+				Intent intent = new Intent();
+				intent.setClass(LoginActivity.this, MenuActivity.class);
+				startActivity(intent);
+				LoginActivity.this.finish();
+			}
+			else {
+				pd = ProgressDialog.show(LoginActivity.this, "", getResources()
+					.getString(R.string.logining));
 
+			/* "access https://www2.lib.ncu.edu.tw/~nfsnfs/mobile-new/api/" */
 			JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
 					Request.Method.GET, GlobalStaticVariable.BASEURL
 							+ "login/?user=" + user + "&passwd=" + passwd,
@@ -135,17 +151,18 @@ public class LoginActivity extends Activity {
 						@Override
 						public void onResponse(JSONObject jsonObject) {
 							try {
+								/* if login successful, take response tokens */
 								if (jsonObject.getBoolean("success") == true) {
 									GlobalStaticVariable.global
 											.setToken(jsonObject
 													.getString("token"));
 									GlobalStaticVariable.global.setLogin(true);
+								/* if fail to login, show the reason */
 								} else {
 									String message = jsonObject
 											.getString("message");
 									Toast.makeText(getApplicationContext(),
 											message, Toast.LENGTH_SHORT).show();
-									Log.d("test", "should not dismiss");
 								}
 							} catch (JSONException e) {
 								e.printStackTrace();
@@ -167,17 +184,10 @@ public class LoginActivity extends Activity {
 							// Toast.LENGTH_SHORT).show();
 						}
 					});
-
+			/* i have no idea what can it do */
 			queue.add(jsonObjectRequest);
-
-			// if (GlobalStaticVariable.global.isLogin()) {
-			// // start MenuActivity, finish LoginActivity
-			// Intent intent = new Intent();
-			// intent.setClass(LoginActivity.this, MenuActivity.class);
-			// startActivity(intent);
-			// LoginActivity.this.finish();
-			// }
-
+			
+			/* delay 1 second for login progress */
 			new Thread() {
 				public void run() {
 					try {
@@ -197,12 +207,12 @@ public class LoginActivity extends Activity {
 					}
 				}
 			}.start();
-
+			}
 		}
 	};
 
+	/* clean the editText fields */
 	private OnClickListener cleanEvent = new OnClickListener() {
-
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
@@ -211,31 +221,34 @@ public class LoginActivity extends Activity {
 			pwd.setText("");
 		}
 	};
-
+	
+	/* is "save account and password?" checked? */
 	private boolean isAutoLogin() {
 		return mSettings.getBoolean("auto_login", false);
 	}
 
-	// @Override
-	// public boolean onCreateOptionsMenu(Menu menu) {
-	// // Inflate the menu; this adds items to the action bar if it is present.
-	// getMenuInflater().inflate(R.menu.login, menu);
-	// return true;
-	// }
-	//
-	// @Override
-	// public boolean onOptionsItemSelected(MenuItem item) {
-	// // Handle action bar item clicks here. The action bar will
-	// // automatically handle clicks on the Home/Up button, so long
-	// // as you specify a parent activity in AndroidManifest.xml.
-	// int id = item.getItemId();
-	// if (id == R.id.action_settings) {
-	// return true;
-	// }
-	// return super.onOptionsItemSelected(item);
-	// }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.login, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			Toast.makeText(getApplicationContext(),
+				"setting", Toast.LENGTH_SHORT).show();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
-	/* 按兩次退出才結束APP */
+	/* finish the application when press twice "back" *//* 按兩次退出才結束APP */
 	Timer timerExit = new Timer();
 	TimerTask task = new TimerTask() {
 		@Override

@@ -5,7 +5,7 @@
     android:background="@drawable/homepage_background"
     android:orientation="vertical"
     android:id="@+id/loginLayout" >
-
+<!-- 
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="40dip"
@@ -24,8 +24,9 @@
             android:textStyle="bold" >
         </TextView>
     </FrameLayout>
-
+ -->
     <FrameLayout
+        android:id="@+id/welcomeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
