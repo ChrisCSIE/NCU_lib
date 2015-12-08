@@ -44,7 +44,8 @@ public class BookDetailActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_book_detail);
+//		setContentView(R.layout.activity_book_detail);
+		setContentView(new MainMenuView(BookDetailActivity.this));
 		
 //		String bookID = getIntent().getStringExtra("bookID");
         //String bookName = getIntent().getStringExtra("bookName");

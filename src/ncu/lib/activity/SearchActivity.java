@@ -156,13 +156,13 @@ public class SearchActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 			Toast.makeText(SearchActivity.this, mBookNameList.get(i).toString(), Toast.LENGTH_LONG).show();
-			Intent intent = new Intent();
-
-			intent.putExtra("bookID", mBookIDList.get(i));
-			intent.putExtra("bookName", mBookNameList.get(i));
-			intent.setClass(SearchActivity.this, BookDetailActivity.class);
+//			Intent intent = new Intent();
+//
+//			intent.putExtra("bookID", mBookIDList.get(i));
+//			intent.putExtra("bookName", mBookNameList.get(i));
+//			intent.setClass(SearchActivity.this, BookDetailActivity.class);
 //			intent.setClassName("tw.edu.ncu.nculibrary", "tw.edu.ncu.nculibrary.BookDetailActivity");
-			startActivityForResult(intent, 1);
+//			startActivityForResult(intent, 1);
         }
     };
 

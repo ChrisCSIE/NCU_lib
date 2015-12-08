@@ -21,7 +21,7 @@ import android.view.SurfaceView;
 @SuppressLint("WrongCall")
 public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback {
 	// RootActivity activity;
-	MenuActivity activity;
+	Activity activity;
 	Paint paint;
 	Bitmap scaled;
 	Bitmap bitmapSearch;
@@ -55,7 +55,7 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 	float textGap;
 	int size = 4;
 
-	public MainMenuView(MenuActivity activity) {
+	public MainMenuView(Activity activity) {
 		super(activity);
 		this.activity = activity;
 		this.getHolder().addCallback(this);
