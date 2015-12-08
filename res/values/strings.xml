@@ -2,13 +2,14 @@
 <resources>
 
     <string name="app_name">NCU_Lib</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="network_issue">Network Unavailable</string>
+    <string name="logining">登入中，請耐心等候</string>
     <string name="title_activity_main_menu_view">MainMenuView</string>
     <string name="title_activity_root">RootActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
-    <string name="network_issue">Network Unavailable</string>
-    <string name="logining">登入中，請耐心等候</string>
+    <string name="request_button">Request</string>
     <string name="search_button">Search</string>
     <string name="search_description">Start to Search!</string>
     <string name="search_hint">Insert keywords ...</string>
@@ -16,5 +17,10 @@
     <string name="title_activity_book_list">BookListActivity</string>
     <string name="prev">Prev</string>
     <string name="next">Next</string>
+    <string name="bookname">The Name of Book</string>
+    <string name="isbn">ISBN</string>
+    <string name="imprint">Imprint</string>
+    <string name="version">Version</string>
+    <string name="link">Link to</string>
 
 </resources>
