@@ -2,21 +2,6 @@ package ncu.lib.activity;
 
 import ncu.lib.R;
 import ncu.lib.R.drawable;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.util.Log;
-import android.view.Display;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 
 @SuppressLint("WrongCall")
 public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback {

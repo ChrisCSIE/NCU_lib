@@ -1,16 +1,7 @@
 package ncu.lib.activity;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import ncu.lib.R;
 import ncu.lib.R.drawable;
-
-import android.app.Activity;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.view.KeyEvent;
-import android.widget.Toast;
 
 public class MenuActivity extends Activity {
 	private static Boolean isExit = false;
