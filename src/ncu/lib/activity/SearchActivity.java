@@ -198,6 +198,7 @@ public class SearchActivity extends Activity {
                     mListAdapter.notifyDataSetChanged();
 
                 loadingPanel.setVisibility(View.GONE);
+                mListView.setSelection(0);
 
                 Button prevBtn = (Button) findViewById(R.id.prev);
                 Button nextBtn = (Button) findViewById(R.id.next);
