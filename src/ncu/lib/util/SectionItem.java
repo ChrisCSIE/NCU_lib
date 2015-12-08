@@ -16,7 +16,6 @@ public class SectionItem implements Item {
     }
 
     @Override
-	@Override
     public boolean isSection() {
         return true;
     }
