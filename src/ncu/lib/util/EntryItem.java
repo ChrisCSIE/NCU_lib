@@ -21,6 +21,7 @@ public class EntryItem implements Item {
     }*/
 
     @Override
+	@Override
     public boolean isSection() {
         return false;
     }
