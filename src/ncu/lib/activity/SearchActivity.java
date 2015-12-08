@@ -1,7 +1,34 @@
 package ncu.lib.activity;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+
 import ncu.lib.R;
 import ncu.lib.library.VolleyProvider;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.inputmethod.InputMethodManager;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -141,7 +168,6 @@ public class SearchActivity extends Activity {
 
     Response.ErrorListener mErrorListener = new Response.ErrorListener() {
         @Override
-		@Override
         public void onErrorResponse(VolleyError volleyError) {
             Toast.makeText(SearchActivity.this, "Error!", Toast.LENGTH_SHORT).show();
         }

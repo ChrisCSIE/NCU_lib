@@ -1,5 +1,7 @@
 package ncu.lib.activity;
 
+import android.app.Application;
+
 /**
  * Created by chenli-han on 2014/8/28.
  */

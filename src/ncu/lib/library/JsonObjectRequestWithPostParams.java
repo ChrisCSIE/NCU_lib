@@ -1,5 +1,14 @@
 package ncu.lib.library;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -32,7 +41,6 @@ public class JsonObjectRequestWithPostParams extends Request<JSONObject>{
     }
 
     @Override
-	@Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse networkResponse) {
         try {
             String jsonString = new String(networkResponse.data,
@@ -56,19 +64,16 @@ public class JsonObjectRequestWithPostParams extends Request<JSONObject>{
     }
 
     @Override
-	@Override
     public String getBodyContentType() {
         return PROTOCOL_CONTENT_TYPE + getParamsEncoding();
     }
 
     @Override
-	@Override
     public Map<String, String> getParams() {
         return mRequestMap;
     }
 
     @Override
-	@Override
     public byte[] getBody() throws AuthFailureError{
         Map<String, String> params = getParams();
 
@@ -93,13 +98,11 @@ public class JsonObjectRequestWithPostParams extends Request<JSONObject>{
     }
 
     @Override
-	@Override
     public byte[] getPostBody() throws AuthFailureError {
         return getBody();
     }
 
     @Override
-	@Override
     protected String getParamsEncoding() {
         return PROTOCOL_CHARSET;
     }

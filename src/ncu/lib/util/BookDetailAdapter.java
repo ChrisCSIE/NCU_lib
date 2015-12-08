@@ -1,9 +1,17 @@
 package ncu.lib.util;
 
+import java.util.ArrayList;
+
 import ncu.lib.util.EntryItem;
 import ncu.lib.util.Item;
 import ncu.lib.util.SectionItem;
 import ncu.lib.R;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 /**
  * Created by chenli-han on 2014/8/14.
