@@ -155,14 +155,15 @@ public class SearchActivity extends Activity {
 	AdapterView.OnItemClickListener mBookClickListener = new AdapterView.OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-			Toast.makeText(SearchActivity.this, mBookNameList.get(i).toString(), Toast.LENGTH_LONG).show();
-//			Intent intent = new Intent();
-//
-//			intent.putExtra("bookID", mBookIDList.get(i));
-//			intent.putExtra("bookName", mBookNameList.get(i));
-//			intent.setClass(SearchActivity.this, BookDetailActivity.class);
-//			intent.setClassName("tw.edu.ncu.nculibrary", "tw.edu.ncu.nculibrary.BookDetailActivity");
-//			startActivityForResult(intent, 1);
+//			Toast.makeText(SearchActivity.this, mBookNameList.get(i).toString(), Toast.LENGTH_LONG).show();
+			Intent intent = new Intent();
+
+			intent.putExtra("bookID", mBookIDList.get(i));
+			intent.putExtra("bookName", mBookNameList.get(i));
+			intent.setClass(SearchActivity.this, BookDetailActivity.class);
+//			intent.setClassName("tw.edu.ncu.nculibrary", "tw.edu.ncu.nculibrary.BookDetailListActivity");
+			startActivityForResult(intent, 1);
+//			startActivity(intent);
         }
     };
 

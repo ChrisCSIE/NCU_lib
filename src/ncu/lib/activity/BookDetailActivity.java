@@ -44,59 +44,58 @@ public class BookDetailActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.activity_book_detail);
-		setContentView(new MainMenuView(BookDetailActivity.this));
+		setContentView(R.layout.activity_book_detail);
 		
-//		String bookID = getIntent().getStringExtra("bookID");
-        //String bookName = getIntent().getStringExtra("bookName");
+		String bookID = getIntent().getStringExtra("bookID");
+        String bookName = getIntent().getStringExtra("bookName");
 
-//        mDetailListView = (ListView) findViewById(R.id.book_detail_listview);
-//        mDetailList = new ArrayList<Item>();
-//        mAdapter = new BookDetailAdapter(BookDetailActivity.this, mDetailList);
-//        mDetailListView.setAdapter(mAdapter);
-//
-//        mQueue = VolleyProvider.getQueue(this);
-//
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
-//            GlobalStaticVariable.BASEURL + "getbook/?url=" + bookID, null,
-//           new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject jsonObject) {
-//
-//                mDetailList.clear();
-//
-//                try {
-//                    mBookname = jsonObject.getString("title");
-//                    mRequest = jsonObject.optString("request");
-//                    mISBN = jsonObject.optString("isbn");
-//                    mImprint = jsonObject.optString("imprint");
-//                    mVerison = jsonObject.optString("version");
-//                    mLink = jsonObject.optString("links");
-//
+        mDetailListView = (ListView) findViewById(R.id.book_detail_listview);
+        mDetailList = new ArrayList<Item>();
+        mAdapter = new BookDetailAdapter(BookDetailActivity.this, mDetailList);
+        mDetailListView.setAdapter(mAdapter);
+
+        mQueue = VolleyProvider.getQueue(this);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+            GlobalStaticVariable.BASEURL + "getbook/?url=" + bookID, null,
+           new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+
+                mDetailList.clear();
+
+                try {
+                    mBookname = jsonObject.getString("title");
+                    mRequest = jsonObject.optString("request");
+                    mISBN = jsonObject.optString("isbn");
+                    mImprint = jsonObject.optString("imprint");
+                    mVerison = jsonObject.optString("version");
+                    mLink = jsonObject.optString("links");
+
 //                    Button button = (Button) findViewById(R.id.request_button);
-//
-//
-//                    if(mBookname != "") {
-//                        mDetailList.add(new SectionItem(getString(R.string.bookname)));
-//                        mDetailList.add(new EntryItem(mBookname));
-//                    }
-//
-//                    if(mISBN != "") {
-//                        mDetailList.add(new SectionItem(getString(R.string.isbn)));
-//                        mDetailList.add(new EntryItem(mISBN));
-//                    }
-//
-//                    if(mImprint != "") {
-//                        mDetailList.add(new SectionItem(getString(R.string.imprint)));
-//                        mDetailList.add(new EntryItem(mImprint));
-//                    }
-//
-//                    if(mVerison != "") {
-//                        Log.d("test", mVerison);
-//                        mDetailList.add(new SectionItem(getString(R.string.version)));
-//                        mDetailList.add(new EntryItem(mVerison));
-//                    }
-//
+
+
+                    if(mBookname != "") {
+                        mDetailList.add(new SectionItem(getString(R.string.bookname)));
+                        mDetailList.add(new EntryItem(mBookname));
+                    }
+
+                    if(mISBN != "") {
+                        mDetailList.add(new SectionItem(getString(R.string.isbn)));
+                        mDetailList.add(new EntryItem(mISBN));
+                    }
+
+                    if(mImprint != "") {
+                        mDetailList.add(new SectionItem(getString(R.string.imprint)));
+                        mDetailList.add(new EntryItem(mImprint));
+                    }
+
+                    if(mVerison != "") {
+                        Log.d("test", mVerison);
+                        mDetailList.add(new SectionItem(getString(R.string.version)));
+                        mDetailList.add(new EntryItem(mVerison));
+                    }
+
 //                    if(mLink != "") {
 //                        button.setText(getString(R.string.link));
 //                        button.setVisibility(View.VISIBLE);
@@ -113,7 +112,7 @@ public class BookDetailActivity extends Activity {
 //                        });
 //
 //                    }
-//
+
 //                    if(mRequest != "") {
 //                        button.setText(getString(R.string.request_button));
 //                        button.setClickable(true);
@@ -131,22 +130,22 @@ public class BookDetailActivity extends Activity {
 //                        });
 //
 //                    }
-//
-//                    mAdapter.notifyDataSetChanged();
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError volleyError) {
-//                Log.d("test", "onErrorResponse");
-//            }
-//        });
-//
-//        mQueue.add(jsonObjectRequest);
-//
+
+                    mAdapter.notifyDataSetChanged();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.d("test", "onErrorResponse");
+            }
+        });
+
+        mQueue.add(jsonObjectRequest);
+
 //        Button button = (Button) findViewById(R.id.request_button);
 //        button.setClickable(false);
 	}

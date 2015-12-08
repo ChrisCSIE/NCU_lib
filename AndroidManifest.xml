@@ -45,8 +45,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="ncu.lib.activity.BookListActivity"
+            android:name=".activity.BookDetailActivity"
             android:label="@string/title_activity_book_list" >
+        </activity>
+        <activity
+            android:name=".activity.BookDetailListActivity"
+            android:label="@string/title_activity_book_detail_list" >
         </activity>
     </application>
 

@@ -22,5 +22,6 @@
     <string name="imprint">Imprint</string>
     <string name="version">Version</string>
     <string name="link">Link to</string>
+    <string name="title_activity_book_detail_list">BookDetailListActivity</string>
 
 </resources>
