@@ -10,7 +10,7 @@ public class NcuLibraryApplication extends Application {
     private String token;
     private Boolean isLogin = false;
 
-    protected String getToken() {
+    public String getToken() {
         return token;
     }
 

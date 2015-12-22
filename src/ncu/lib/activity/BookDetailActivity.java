@@ -54,7 +54,7 @@ public class BookDetailActivity extends Activity {
         loadingPanel.setVisibility(View.VISIBLE);
 		
 		String bookID = getIntent().getStringExtra("bookID");
-        String bookName = getIntent().getStringExtra("bookName");
+//        String bookName = getIntent().getStringExtra("bookName");
 
         mDetailListView = (ListView) findViewById(R.id.book_detail_listview);
         mDetailList = new ArrayList<Item>();
@@ -129,9 +129,9 @@ public class BookDetailActivity extends Activity {
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent();
-
-                                intent.setClassName(GlobalStaticVariable.PKGNAME,
-                                        GlobalStaticVariable.PKGNAME + ".RequestBookActivity");
+                                intent .setClass(BookDetailActivity.this, RequestBookActivity.class);
+//                                intent.setClassName(GlobalStaticVariable.PKGNAME,
+//                                        GlobalStaticVariable.PKGNAME + ".RequestBookActivity");
                                 intent.putExtra("request", mRequest);
                                 startActivity(intent);
                             }

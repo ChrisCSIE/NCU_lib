@@ -23,5 +23,11 @@
     <string name="version">Version</string>
     <string name="link">Link to</string>
     <string name="title_activity_book_detail_list">BookDetailListActivity</string>
+    <string name="title_activity_request_book">RequestBookActivity</string>
+    <string name="callnumber">Call number</string>
+    <string name="location">Location</string>
+    <string name="status">Status</string>
+    <string name="barcode">Barcode</string>
+    <string name="request">Request for ...</string>
 
 </resources>

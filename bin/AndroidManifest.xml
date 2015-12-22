@@ -52,6 +52,10 @@
             android:name=".activity.BookDetailListActivity"
             android:label="@string/title_activity_book_detail_list" >
         </activity>
+        <activity
+            android:name=".activity.RequestBookActivity"
+            android:label="@string/title_activity_request_book" >
+        </activity>
     </application>
 
 </manifest>

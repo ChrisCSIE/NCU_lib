@@ -29,6 +29,7 @@ public class BookDetailAdapter extends ArrayAdapter<Item> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
+        int fontSize = 20;
 
         final Item item = items.get(position);
         if(item != null) {
@@ -41,6 +42,7 @@ public class BookDetailAdapter extends ArrayAdapter<Item> {
                 //view.setLongClickable(false);
 
                 final TextView sectionView = (TextView) view.findViewById(R.id.item_section_header);
+                sectionView.setTextSize(fontSize);
                 sectionView.setText(sectionItem.getTitle());
 
             } else {
@@ -48,7 +50,7 @@ public class BookDetailAdapter extends ArrayAdapter<Item> {
                 view = inflater.inflate(R.layout.item_entry, null);
 
                 final TextView title = (TextView) view.findViewById(R.id.item_entry_title);
-
+                title.setTextSize(fontSize);
                 if(title != null)
                     title.setText(entryItem.getTitle());
             }

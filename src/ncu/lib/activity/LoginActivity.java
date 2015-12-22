@@ -38,7 +38,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 public class LoginActivity extends Activity {
-	private boolean debugMode = true;
+	private boolean debugMode = false;
 	private Button login, clean;
 	private EditText account, pwd;
 	private ImageView welcome;
@@ -184,7 +184,7 @@ public class LoginActivity extends Activity {
 							// Toast.LENGTH_SHORT).show();
 						}
 					});
-			/* i have no idea what can it do */
+			/* i have no idea what can it do. by yuming. */
 			queue.add(jsonObjectRequest);
 			
 			/* delay 1 second for login progress */
