@@ -29,5 +29,8 @@
     <string name="status">Status</string>
     <string name="barcode">Barcode</string>
     <string name="request">Request for ...</string>
+    <string name="title_activity_requested">RequestedActivity</string>
+    <string name="text_no_requested">No Requested Book ...</string>
+    <string name="button_cancel_request">Cancel Requested Books</string>
 
 </resources>

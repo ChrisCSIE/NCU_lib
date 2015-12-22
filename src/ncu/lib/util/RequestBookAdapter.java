@@ -107,13 +107,16 @@ public class RequestBookAdapter extends ArrayAdapter<Item> {
                                             @Override
                                             public void onResponse(JSONObject jsonObject) {
                                                 try {
-                                                    String message = jsonObject.getString("message");
-                                                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                                    String getMessage = jsonObject.getString("message");
+                                                	String message = getMessage!=null? "已交由借書系統處理,稍後可以到「預約書目」查看": "";
+                                                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
 //                                                    button.setVisibility(View.GONE);
 //                                                    TextView textView = (TextView) findViewById(R.id.request_result);
 //                                                    textView.setText(message);
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
+                                                    String message = "預約失敗,請稍後再試";
+                                                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
                                                 }
                                             }
                                         },

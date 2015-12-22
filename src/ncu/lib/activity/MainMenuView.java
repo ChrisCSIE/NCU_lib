@@ -155,6 +155,11 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 			if (x > BUTTON_REQUESTED_XOFFSET && x < BUTTON_REQUESTED_XOFFSET + scale && y > BUTTON_REQUESTED_YOFFSET
 					&& y < BUTTON_REQUESTED_YOFFSET + scale) {
 				Log.d("REQUESTED", "REQUESTED Button");
+				// start RequestedActivity 
+				Intent intent = new Intent();
+				intent.setClass(activity,
+						RequestedActivity.class);
+				activity.startActivity(intent);
 			}
 			if (x > BUTTON_NEWS_XOFFSET && x < BUTTON_NEWS_XOFFSET + scale && y > BUTTON_NEWS_YOFFSET
 					&& y < BUTTON_NEWS_YOFFSET + scale) {

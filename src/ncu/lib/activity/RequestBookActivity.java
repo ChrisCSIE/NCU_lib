@@ -47,11 +47,9 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
         setContentView(R.layout.activity_request_book);
 
         final String mRequest = getIntent().getStringExtra("request");
-//        Toast.makeText(this, "mRequest"+mRequest, Toast.LENGTH_SHORT).show();
-
-//        mToken = ((NcuLibraryApplication) getApplicationContext()).getToken();
         mToken = GlobalStaticVariable.global.getToken();
-//        Toast.makeText(this, "mToken"+mToken, Toast.LENGTH_SHORT).show();
+//        mToken = ((NcuLibraryApplication) getApplicationContext()).getToken();
+        
         mQueue = VolleyProvider.getQueue(this);
         mRequestList = new ArrayList<Item>();
         mRequestBookAdapter = new RequestBookAdapter(this, mRequestList);
