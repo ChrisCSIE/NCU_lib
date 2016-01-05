@@ -191,15 +191,15 @@ public class LoginActivity extends Activity {
 			new Thread() {
 				public void run() {
 					try {
-						sleep(1000);
-						if (GlobalStaticVariable.global.isLogin()) {
-							// finish LoginActivity, start MenuActivity
-							Intent intent = new Intent();
-							intent.setClass(LoginActivity.this,
-									MenuActivity.class);
-							startActivity(intent);
-							LoginActivity.this.finish();
+						while (!GlobalStaticVariable.global.isLogin()) {
+							sleep(1000);
 						}
+						// finish LoginActivity, start MenuActivity
+						Intent intent = new Intent();
+						intent.setClass(LoginActivity.this,
+								MenuActivity.class);
+						startActivity(intent);
+						LoginActivity.this.finish();
 					} catch (Exception e) {
 						e.printStackTrace();
 					} finally {

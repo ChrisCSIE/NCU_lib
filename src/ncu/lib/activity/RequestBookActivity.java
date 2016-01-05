@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import ncu.lib.util.EntryItem;
@@ -38,6 +39,7 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
 
     private ListView mBookList;
     private RequestBookAdapter mRequestBookAdapter;
+    private ProgressBar progressBar;
 
     RequestQueue mQueue;
 
@@ -45,6 +47,9 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_book);
+        
+        progressBar = (ProgressBar) findViewById(R.id.requested_loading);
+        progressBar.setVisibility(View.VISIBLE);
 
         final String mRequest = getIntent().getStringExtra("request");
         mToken = GlobalStaticVariable.global.getToken();
@@ -63,6 +68,8 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
+                    	progressBar = (ProgressBar) findViewById(R.id.requested_loading);
+                        progressBar.setVisibility(View.GONE);
                         try {
                             mBookname = jsonObject.getString("bookname");
                             mUrl = jsonObject.optString("url");

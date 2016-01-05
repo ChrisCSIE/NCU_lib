@@ -60,6 +60,14 @@
             android:name=".activity.RequestedActivity"
             android:label="@string/title_activity_requested" >
         </activity>
+        <activity
+            android:name=".activity.BorrowedActivity"
+            android:label="@string/title_activity_borrowed" >
+        </activity>
+        <activity
+            android:name=".activity.NewsActivity"
+            android:label="@string/title_activity_news" >
+        </activity>
     </application>
 
 </manifest>

@@ -32,5 +32,9 @@
     <string name="title_activity_requested">RequestedActivity</string>
     <string name="text_no_requested">No Requested Book ...</string>
     <string name="button_cancel_request">Cancel Requested Books</string>
+    <string name="title_activity_borrowed">BorrowedActivity</string>
+    <string name="text_no_borrowed">No Borrowed Book ...</string>
+    <string name="button_extend_borrowed">Extend Borrowed Books</string>
+    <string name="title_activity_news">NewsActivity</string>
 
 </resources>

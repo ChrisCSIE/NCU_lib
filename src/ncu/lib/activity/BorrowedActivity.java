@@ -1,19 +1,10 @@
 package ncu.lib.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import ncu.lib.R;
-import ncu.lib.library.JsonObjectRequestWithPostParams;
-import ncu.lib.library.VolleyProvider;
-import ncu.lib.util.RequestedAdapter;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
@@ -28,14 +19,34 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-public class RequestedActivity extends Activity {
+import ncu.lib.library.JsonObjectRequestWithPostParams;
+import ncu.lib.library.VolleyProvider;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import ncu.lib.R.layout;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import ncu.lib.R;
+import ncu.lib.util.RequestedAdapter;;
+
+public class BorrowedActivity extends Activity {
+
 	private ArrayList<String> mBookNameList;
     private ArrayList<String> mItemsIDList;
     private ArrayList<String> mStatusList;
 
     private String mToken;
 
-    private RequestedAdapter mRequestedAdapter;
+    /* reuse the RequestedAdapter */
+    private RequestedAdapter mBorrowedAdapter;
     private ListView mListView;
     private ProgressBar progressBar;
 
@@ -44,52 +55,51 @@ public class RequestedActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_requested);
+        setContentView(R.layout.activity_borrowed);
 
         mItemsIDList = new ArrayList<String>();
         mBookNameList = new ArrayList<String>();
         mStatusList = new ArrayList<String>();
 
-        mRequestedAdapter = new RequestedAdapter(this, mBookNameList, mStatusList);
-        mListView = (ListView) findViewById(R.id.requested_listview);
-        mListView.setAdapter(mRequestedAdapter);
+        mBorrowedAdapter = new RequestedAdapter(this, mBookNameList, mStatusList);
+        mListView = (ListView) findViewById(R.id.borrowed_listview);
+        mListView.setAdapter(mBorrowedAdapter);
 
         mQueue = VolleyProvider.getQueue(this);
         mToken = GlobalStaticVariable.global.getToken();
 //        mToken = ((NcuLibraryApplication) getApplicationContext()).getToken();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET, GlobalStaticVariable.BASEURL + "user/reserve?token=" + mToken,
+                Request.Method.GET, GlobalStaticVariable.BASEURL + "user/info?token=" + mToken,
                 null, mResponseListener, mErrorListener);
 
         mQueue.add(jsonObjectRequest);
 
         mListView.setItemsCanFocus(false);
         mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        
-        progressBar = (ProgressBar) findViewById(R.id.request_loading);
+
+        progressBar = (ProgressBar) findViewById(R.id.borrowed_loading);
         progressBar.setVisibility(View.VISIBLE);
     }
     
     Response.Listener<JSONObject> mResponseListener = new Response.Listener<JSONObject>() {
         @Override
         public void onResponse(JSONObject jsonObject) {
-        	
+        	progressBar.setVisibility(View.GONE);
             try {
-                TextView tv = (TextView) findViewById(R.id.no_requested);
+                TextView tv = (TextView) findViewById(R.id.no_borrowed);
                 tv.setVisibility(View.GONE);
-            	progressBar.setVisibility(View.GONE);
 
                 parseJsonBookArray(jsonObject);
 
-                if(mRequestedAdapter.getCount() == 0) {
+                if(mBorrowedAdapter.getCount() == 0) {
                     tv.setVisibility(View.VISIBLE);
                 }
 
-                mRequestedAdapter.notifyDataSetChanged();
+                mBorrowedAdapter.notifyDataSetChanged();
 
-                if(mRequestedAdapter.getCount() != 0) {
-                    final Button button = (Button) findViewById(R.id.cancel_requested_button);
+                if(mBorrowedAdapter.getCount() != 0) {
+                    final Button button = (Button) findViewById(R.id.extend_borrowed_button);
                     button.setVisibility(View.VISIBLE);
                     button.setClickable(true);
 
@@ -97,7 +107,7 @@ public class RequestedActivity extends Activity {
                         @Override
                         public void onClick(View view) {
                             HashMap<String, String> params = new HashMap<String, String>();
-
+                            
                             progressBar.setVisibility(View.VISIBLE);
 
                             for (int i = 0; i < mListView.getAdapter().getCount(); i++) {
@@ -110,7 +120,7 @@ public class RequestedActivity extends Activity {
 
                             JsonObjectRequestWithPostParams jsonObjectRequest = new JsonObjectRequestWithPostParams(
                                     Request.Method.POST,
-                                    GlobalStaticVariable.BASEURL + "user/cancelreserve?token=" + mToken,
+                                    GlobalStaticVariable.BASEURL + "user/renew?token=" + mToken,
                                     params,
                                     new Response.Listener<JSONObject>() {
                                         @Override
@@ -118,13 +128,13 @@ public class RequestedActivity extends Activity {
                                             try {
                                                 parseJsonBookArray(jsonObject);
 
-                                                mRequestedAdapter.notifyDataSetChanged();
+                                                mBorrowedAdapter.notifyDataSetChanged();
                                                 progressBar.setVisibility(View.GONE);
 
-                                                if(mRequestedAdapter.getCount() == 0) {
+                                                if(mBorrowedAdapter.getCount() == 0) {
                                                     button.setVisibility(View.GONE);
 
-                                                    TextView tv = (TextView) findViewById(R.id.no_requested);
+                                                    TextView tv = (TextView) findViewById(R.id.no_borrowed);
                                                     tv.setVisibility(View.VISIBLE);
                                                 }
                                             } catch (JSONException e) {
@@ -135,7 +145,8 @@ public class RequestedActivity extends Activity {
                                     new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError volleyError) {
-
+                                            Log.d("test", "VolleyError: " + volleyError.getMessage());
+                                            //volleyError.printStackTrace();
                                         }
                                     }
                             );
@@ -169,7 +180,7 @@ public class RequestedActivity extends Activity {
     Response.ErrorListener mErrorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-            Toast.makeText(RequestedActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BorrowedActivity.this, "Error!", Toast.LENGTH_SHORT).show();
         }
     };
 }
