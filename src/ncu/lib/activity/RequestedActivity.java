@@ -67,7 +67,7 @@ public class RequestedActivity extends Activity {
         mListView.setItemsCanFocus(false);
         mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         
-        progressBar = (ProgressBar) findViewById(R.id.request_loading);
+        progressBar = (ProgressBar) findViewById(R.id.requested_loading);
         progressBar.setVisibility(View.VISIBLE);
     }
     

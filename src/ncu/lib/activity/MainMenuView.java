@@ -4,6 +4,7 @@ import ncu.lib.R;
 import ncu.lib.R.drawable;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,20 +18,21 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.webkit.WebView;
 
 @SuppressLint("WrongCall")
 public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback {
-	// RootActivity activity;
+//	RootActivity activity;
 	Activity activity;
 	Paint paint;
 	Bitmap scaled;
 	Bitmap bitmapSearch;
 	Bitmap bitmapBorrowed;
 	Bitmap bitmapRequested;
-//	Bitmap bitmapNotice;
 	Bitmap bitmapNews;
 	Bitmap bitmapNewBook;
-	Bitmap bitmapOpeningHours;
+	Bitmap bitmapNotice;
+//	Bitmap bitmapOpeningHours;
 //	Bitmap bitmapLogout;
 
 	float BUTTON_SEARCH_XOFFSET;
@@ -39,15 +41,14 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 	float BUTTON_BORROWED_YOFFSET;
 	float BUTTON_REQUESTED_XOFFSET;
 	float BUTTON_REQUESTED_YOFFSET;
-	// float BUTTON_NOTICE_XOFFSET = xGap*2 + scale;
-	// float BUTTON_NOTICE_YOFFSET = yGap*2 + scale;
 	float BUTTON_NEWS_XOFFSET;
 	float BUTTON_NEWS_YOFFSET;
 	float BUTTON_NEWBOOK_XOFFSET;
 	float BUTTON_NEWBOOK_YOFFSET;
-	float BUTTON_OPENING_XOFFSET;
-	float BUTTON_OPENING_YOFFSET;
-	// Bitmap logout;
+	float BUTTON_NOTICE_XOFFSET;
+	float BUTTON_NOTICE_YOFFSET;
+//	float BUTTON_OPENING_XOFFSET;
+//	float BUTTON_OPENING_YOFFSET;
 
 	float scale;
 	float xGap;
@@ -68,11 +69,10 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 		bitmapSearch = BitmapFactory.decodeResource(getResources(), R.drawable.search);
 		bitmapBorrowed = BitmapFactory.decodeResource(getResources(), R.drawable.borrowed);
 		bitmapRequested = BitmapFactory.decodeResource(getResources(), R.drawable.requested);
-		// bitmapNotice=BitmapFactory.decodeResource(getResources(),
-		// R.drawable.notice);
+		bitmapNotice=BitmapFactory.decodeResource(getResources(), R.drawable.notice);
 		bitmapNews = BitmapFactory.decodeResource(getResources(), R.drawable.news);
 		bitmapNewBook = BitmapFactory.decodeResource(getResources(), R.drawable.new_book);
-		bitmapOpeningHours = BitmapFactory.decodeResource(getResources(), R.drawable.opening_hours);
+//		bitmapOpeningHours = BitmapFactory.decodeResource(getResources(), R.drawable.opening_hours);
 		// logout=BitmapFactory.decodeResource(getResources(),
 		// R.drawable.logout);
 	}
@@ -95,14 +95,14 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 		BUTTON_BORROWED_YOFFSET = yGap;
 		BUTTON_REQUESTED_XOFFSET = xGap;
 		BUTTON_REQUESTED_YOFFSET = yGap * 2 + scale;
-		// float BUTTON_NOTICE_XOFFSET = xGap*2 + scale;
-		// float BUTTON_NOTICE_YOFFSET = yGap*2 + scale;
 		BUTTON_NEWS_XOFFSET = xGap * 2 + scale;
 		BUTTON_NEWS_YOFFSET = yGap * 2 + scale;
 		BUTTON_NEWBOOK_XOFFSET = xGap;
 		BUTTON_NEWBOOK_YOFFSET = yGap * 3 + scale * 2;
-		BUTTON_OPENING_XOFFSET = xGap * 2 + scale;
-		BUTTON_OPENING_YOFFSET = yGap * 3 + scale * 2;
+		BUTTON_NOTICE_XOFFSET = xGap * 2 + scale;
+		BUTTON_NOTICE_YOFFSET = yGap * 3 + scale * 2;
+//		BUTTON_OPENING_XOFFSET = xGap * 2 + scale;
+//		BUTTON_OPENING_YOFFSET = yGap * 3 + scale * 2;
 
 		paint.setColor(Color.BLACK);
 		paint.setTextSize(scale / 4);
@@ -116,18 +116,18 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 		// 預約書目
 		canvas.drawBitmap(Rescaled(bitmapRequested), BUTTON_REQUESTED_XOFFSET, BUTTON_REQUESTED_YOFFSET, null);
 		canvas.drawText("預約書目", BUTTON_REQUESTED_XOFFSET, BUTTON_REQUESTED_YOFFSET + textGap, paint);
-		// //通知
-		// canvas.drawBitmap(Rescaled(bitmapNotice), BUTTON_NOTICE_XOFFSET,
-		// BUTTON_NOTICE_YOFFSET, null);
-		// //最新消息
+		// 最新消息
 		canvas.drawBitmap(Rescaled(bitmapNews), BUTTON_NEWS_XOFFSET, BUTTON_NEWS_YOFFSET, null);
 		canvas.drawText("最新消息", BUTTON_NEWS_XOFFSET, BUTTON_NEWS_YOFFSET + textGap, paint);
-		// //新書推薦
+		// 新書推薦
 		canvas.drawBitmap(Rescaled(bitmapNewBook), BUTTON_NEWBOOK_XOFFSET, BUTTON_NEWBOOK_YOFFSET, null);
 		canvas.drawText("新書推薦", BUTTON_NEWBOOK_XOFFSET, BUTTON_NEWBOOK_YOFFSET + textGap, paint);
-		// //開館時間
-		canvas.drawBitmap(Rescaled(bitmapOpeningHours), BUTTON_OPENING_XOFFSET, BUTTON_OPENING_YOFFSET, null);
-		canvas.drawText("開館時間", BUTTON_OPENING_XOFFSET, BUTTON_OPENING_YOFFSET + textGap, paint);
+		// 通知
+		canvas.drawBitmap(Rescaled(bitmapNotice), BUTTON_NOTICE_XOFFSET, BUTTON_NOTICE_YOFFSET, null);
+		canvas.drawText("借還書須知", BUTTON_NOTICE_XOFFSET-25, BUTTON_NOTICE_YOFFSET + textGap, paint);
+//		// 開館時間
+//		canvas.drawBitmap(Rescaled(bitmapOpeningHours), BUTTON_OPENING_XOFFSET, BUTTON_OPENING_YOFFSET, null);
+//		canvas.drawText("開館時間", BUTTON_OPENING_XOFFSET, BUTTON_OPENING_YOFFSET + textGap, paint);
 	}
 
 	@Override
@@ -169,20 +169,48 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 			if (x > BUTTON_NEWS_XOFFSET && x < BUTTON_NEWS_XOFFSET + scale && y > BUTTON_NEWS_YOFFSET
 					&& y < BUTTON_NEWS_YOFFSET + scale) {
 				Log.d("NEWS", "NEWS Button");
+				Intent intent = new Intent();
+				intent.setClass(activity,
+						NewsActivity.class);
+				activity.startActivity(intent);
 			}
 			if (x > BUTTON_NEWBOOK_XOFFSET && x < BUTTON_NEWBOOK_XOFFSET + scale && y > BUTTON_NEWBOOK_YOFFSET
 					&& y < BUTTON_NEWBOOK_YOFFSET + scale) {
 				Log.d("NEWBOOK", "NEWBOOK Button");
+				Intent intent = new Intent();
+				intent.setClass(activity,
+						NewBooksListActivity.class);
+				activity.startActivity(intent);
 			}
+			if (x > BUTTON_NOTICE_XOFFSET && x < BUTTON_NOTICE_XOFFSET + scale && y > BUTTON_NOTICE_YOFFSET
+					&& y < BUTTON_NOTICE_YOFFSET + scale) {
+				Log.d("NOTICE", "NOTICE Button");
+				String mURL = "http://www2.lib.ncu.edu.tw/mobileold/appborr.html";
+				WebView webView = new WebView(activity);
+				webView.getSettings().setJavaScriptEnabled(true);
+		        webView.loadUrl(mURL);
+		        
+		        AlertDialog.Builder alert = new AlertDialog.Builder(activity);
+                alert.setView(webView);
+                alert.show();
+			}
+//			if (x > BUTTON_OPENING_XOFFSET && x < BUTTON_OPENING_XOFFSET + scale && y > BUTTON_OPENING_YOFFSET
+//					&& y < BUTTON_OPENING_YOFFSET + scale) {
+//				Log.d("OPENING", "OPENING Button");
+//				String mURL = "http://www2.lib.ncu.edu.tw/mobileold/appopentime.html";
+//				WebView webView = new WebView(activity);
+//				webView.getSettings().setJavaScriptEnabled(true);
+//		        webView.loadUrl(mURL);
+//		        
+//		        AlertDialog.Builder alert = new AlertDialog.Builder(activity);
+//                alert.setView(webView);
+//                alert.show();
+//			}
 			// if(x>BUTTON_LOGOUT_XOFFSET&&x<BUTTON_LOGOUT_XOFFSET+BUTTON_LOGOUT_WIDTH
 			// &&y>BUTTON_LOGOUT_YOFFSET&&y<BUTTON_LOGOUT_YOFFSET+BUTTON_LOGOUT_HEIGHT)
 			// {
 			// activity.hd.sendEmptyMessage(0);
 			// }
-			if (x > BUTTON_OPENING_XOFFSET && x < BUTTON_OPENING_XOFFSET + scale && y > BUTTON_OPENING_YOFFSET
-					&& y < BUTTON_OPENING_YOFFSET + scale) {
-				Log.d("OPENING", "OPENING Button");
-			}
 			break;
 		}
 		return true;
