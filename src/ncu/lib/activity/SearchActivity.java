@@ -196,6 +196,8 @@ public class SearchActivity extends Activity {
                 }
                 if(mListAdapter != null)
                     mListAdapter.notifyDataSetChanged();
+                else
+                	
 
                 loadingPanel.setVisibility(View.GONE);
                 mListView.setSelection(0);

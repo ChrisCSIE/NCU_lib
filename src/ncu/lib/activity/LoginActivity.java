@@ -14,6 +14,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -46,7 +48,7 @@ public class LoginActivity extends Activity {
 	private Boolean isExit = false;
 	private Boolean hasTask = false;
 	private FrameLayout welcomeLayout;
-	private LinearLayout loginLayout;
+	private LinearLayout loginLayout, componentLayout;
 	private SharedPreferences mSettings;
 	private ProgressDialog pd;
 
@@ -57,6 +59,20 @@ public class LoginActivity extends Activity {
 		getActionBar().hide();
 		/* initial layout component*/
 		findComponent();
+		
+		DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);   
+        int screenHeight = metrics.heightPixels;
+        //int screenWidth = metrics.widthPixels;
+        
+		//int layout_width = screenWidth;
+		int layout_height = screenHeight / 3;
+		
+		LayoutParams welcome_parms = welcome.getLayoutParams();
+		welcome_parms.height = layout_height;
+		
+		LayoutParams component_parms = componentLayout.getLayoutParams();
+		component_parms.height = layout_height;
 		
 		/* if touch screen, hide the soft keyboard*/
 		loginLayout.setOnTouchListener(new OnTouchListener() {
@@ -94,9 +110,10 @@ public class LoginActivity extends Activity {
 		login = (Button) findViewById(R.id.login);
 		clean = (Button) findViewById(R.id.clean);
 		autoLogin = (CheckBox) findViewById(R.id.autoLogin);
-		loginLayout = (LinearLayout) findViewById(R.id.loginLayout);
 		
+		loginLayout = (LinearLayout) findViewById(R.id.loginLayout);
 		welcomeLayout = (FrameLayout) findViewById(R.id.welcomeLayout);
+		componentLayout = (LinearLayout) findViewById(R.id.componentLayout);
 	}
 
 	private OnClickListener loginEvent = new OnClickListener() {

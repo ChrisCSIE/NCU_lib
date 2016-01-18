@@ -40,8 +40,9 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/componentLayout"
         android:layout_width="fill_parent"
-        android:layout_height="600px"
+        android:layout_height="800px"
         android:background="#ffffff"
         android:gravity="center"
         android:orientation="vertical" >
