@@ -13,6 +13,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -54,27 +56,37 @@ public class LoginActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		getActionBar().hide();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		getActionBar().hide();
 		/* initial layout component*/
 		findComponent();
+		
+		/*----------------Resize Layout--------------*/
 		
 		DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);   
         int screenHeight = metrics.heightPixels;
-        //int screenWidth = metrics.widthPixels;
+        int screenWidth = metrics.widthPixels;
+        Toast.makeText(this, String.valueOf(screenHeight)+":"+String.valueOf(screenWidth), Toast.LENGTH_SHORT).show();
         
-		//int layout_width = screenWidth;
-		int layout_height = screenHeight / 3;
-		
 		LayoutParams welcome_parms = welcome.getLayoutParams();
-		welcome_parms.height = layout_height;
-		
 		LayoutParams component_parms = componentLayout.getLayoutParams();
-		component_parms.height = layout_height;
 		
-		/* if touch screen, hide the soft keyboard*/
+        if (screenHeight < 1000) {
+//        	loginLayout.setBackgroundResource(R.drawable.white_background);
+        	loginLayout.setBackgroundColor(Color.TRANSPARENT);
+    		welcome_parms.height = screenHeight/2 - screenHeight/10;
+    		component_parms.height = screenHeight/2 - screenHeight/20;
+        }
+        else {
+        	welcome_parms.height = screenHeight/3;
+    		component_parms.height = screenHeight/3;
+        }
+		
+		/*---------------------------------------------------------*/
+		
+		/* if touch screen, hide the soft keyboard */
 		loginLayout.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -150,14 +162,11 @@ public class LoginActivity extends Activity {
 			// NcuLibraryApplication();
 			
 			if (debugMode){
-				// start MenuActivity, finish LoginActivity
-				Intent intent = new Intent();
-				intent.setClass(LoginActivity.this, MenuActivity.class);
-				startActivity(intent);
-				LoginActivity.this.finish();
+				user = "104522100";
+				passwd = "104522100";
 			}
-			else {
-				pd = ProgressDialog.show(LoginActivity.this, "", getResources()
+			
+			pd = ProgressDialog.show(LoginActivity.this, "", getResources()
 					.getString(R.string.logining));
 
 			/* "access https://www2.lib.ncu.edu.tw/~nfsnfs/mobile-new/api/" */
@@ -180,6 +189,7 @@ public class LoginActivity extends Activity {
 											.getString("message");
 									Toast.makeText(getApplicationContext(),
 											message, Toast.LENGTH_SHORT).show();
+									pd.dismiss();
 								}
 							} catch (JSONException e) {
 								e.printStackTrace();
@@ -195,6 +205,7 @@ public class LoginActivity extends Activity {
 									getResources().getString(
 											R.string.network_issue),
 									Toast.LENGTH_SHORT).show();
+							pd.dismiss();
 							// Toast.makeText(
 							// getApplicationContext(),
 							// volleyError.getMessage(),
@@ -224,7 +235,6 @@ public class LoginActivity extends Activity {
 					}
 				}
 			}.start();
-			}
 		}
 	};
 
@@ -295,5 +305,11 @@ public class LoginActivity extends Activity {
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
 	}
 }

@@ -10,6 +10,10 @@ package ncu.lib;
 public final class R {
     public static final class attr {
     }
+    public static final class color {
+        public static final int button=0x7f090001;
+        public static final int not_requestable=0x7f090000;
+    }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
@@ -28,39 +32,44 @@ public final class R {
     <drawable name="button">#16a085</drawable>
     <drawable name="button_word">#E4F1FE</drawable> 
          */
-        public static final int actionbar_background=0x7f020018;
+        public static final int actionbar_background=0x7f02001c;
         public static final int borrowed=0x7f020000;
         public static final int btn_black=0x7f020001;
-        public static final int button=0x7f02001a;
-        public static final int button_word=0x7f02001b;
-        public static final int custom_edittext=0x7f020002;
-        public static final int edittext_style=0x7f020003;
-        public static final int hilight=0x7f020004;
-        public static final int homepage_background=0x7f020005;
-        public static final int ic_action_back=0x7f020006;
-        public static final int ic_action_forward=0x7f020007;
-        public static final int ic_action_search=0x7f020008;
-        public static final int ic_launcher=0x7f020009;
-        public static final int icon=0x7f02000a;
-        public static final int loading_background=0x7f02001c;
-        public static final int main_background=0x7f02000b;
-        public static final int navigator=0x7f02000c;
-        public static final int new_book=0x7f02000d;
-        public static final int news=0x7f02000e;
-        public static final int not_requestable=0x7f02001d;
-        public static final int notice=0x7f02000f;
-        public static final int opening_hours=0x7f020010;
-        public static final int requested=0x7f020011;
-        public static final int search=0x7f020012;
-        public static final int searching=0x7f020013;
-        public static final int text_field=0x7f020014;
-        public static final int title=0x7f020015;
-        public static final int welcome=0x7f020016;
-        public static final int welcome_title=0x7f020017;
+        public static final int button=0x7f02001f;
+        public static final int button_selector=0x7f020002;
+        public static final int button_word=0x7f020020;
+        public static final int custom_edittext=0x7f020003;
+        public static final int edittext_style=0x7f020004;
+        public static final int hilight=0x7f020005;
+        public static final int homepage_background=0x7f020006;
+        public static final int ic_action_back=0x7f020007;
+        public static final int ic_action_forward=0x7f020008;
+        public static final int ic_action_refresh=0x7f020009;
+        public static final int ic_action_search=0x7f02000a;
+        public static final int ic_action_select_all=0x7f02000b;
+        public static final int ic_action_unselect_all=0x7f02000c;
+        public static final int ic_launcher=0x7f02000d;
+        public static final int icon=0x7f02000e;
+        public static final int loading_background=0x7f020021;
+        public static final int main_background=0x7f02000f;
+        public static final int navigator=0x7f020010;
+        public static final int new_book=0x7f020011;
+        public static final int news=0x7f020012;
+        public static final int not_requestable=0x7f020022;
+        public static final int notice=0x7f020013;
+        public static final int opening_hours=0x7f020014;
+        public static final int requested=0x7f020015;
+        public static final int search=0x7f020016;
+        public static final int searching=0x7f020017;
+        public static final int text_field=0x7f020018;
+        public static final int title=0x7f020019;
+        public static final int welcome=0x7f02001a;
+        public static final int welcome_title=0x7f02001b;
         /**  #F37D2A 
  <drawable name="background">#F1F5EF</drawable> 
          */
-        public static final int word=0x7f020019;
+        public static final int white_background=0x7f02001d;
+        public static final int word=0x7f02001e;
     }
     public static final class id {
         public static final int account=0x7f08000d;
@@ -72,6 +81,9 @@ public final class R {
         public static final int book_request_listview=0x7f080017;
         public static final int borrowed_listview=0x7f080006;
         public static final int borrowed_loading=0x7f080004;
+        public static final int borrowed_refresh=0x7f080030;
+        public static final int borrowed_select_all=0x7f08002e;
+        public static final int borrowed_unselect_all=0x7f08002f;
         public static final int cancel_requested_button=0x7f08001b;
         public static final int clean=0x7f080012;
         public static final int componentLayout=0x7f08000b;
@@ -103,6 +115,9 @@ public final class R {
         public static final int requested_item_status=0x7f080029;
         public static final int requested_listview=0x7f08001a;
         public static final int requested_loading=0x7f080018;
+        public static final int requested_refresh=0x7f080033;
+        public static final int requested_select_all=0x7f080031;
+        public static final int requested_unselect_all=0x7f080032;
         public static final int searchLayout=0x7f08001c;
         public static final int search_button=0x7f08001f;
         public static final int testtext=0x7f080003;
@@ -131,7 +146,9 @@ public final class R {
     }
     public static final class menu {
         public static final int login=0x7f070000;
-        public static final int request_book=0x7f070001;
+        public static final int menu_borrowed=0x7f070001;
+        public static final int menu_requested=0x7f070002;
+        public static final int request_book=0x7f070003;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -158,6 +175,9 @@ public final class R {
         public static final int status=0x7f050019;
         public static final int text_no_borrowed=0x7f050020;
         public static final int text_no_requested=0x7f05001d;
+        public static final int text_refresh=0x7f050024;
+        public static final int text_select_all=0x7f050025;
+        public static final int text_unselect_all=0x7f050026;
         public static final int title_activity_book_detail_list=0x7f050015;
         public static final int title_activity_book_list=0x7f05000d;
         public static final int title_activity_borrowed=0x7f05001f;

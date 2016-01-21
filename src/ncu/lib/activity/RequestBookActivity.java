@@ -48,9 +48,9 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_book);
         
-        progressBar = (ProgressBar) findViewById(R.id.requested_loading);
+        progressBar = (ProgressBar) findViewById(R.id.request_loading);
         progressBar.setVisibility(View.VISIBLE);
-
+        
         final String mRequest = getIntent().getStringExtra("request");
         mToken = GlobalStaticVariable.global.getToken();
 //        mToken = ((NcuLibraryApplication) getApplicationContext()).getToken();
@@ -61,14 +61,13 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
         mBookList = (ListView) findViewById(R.id.book_request_listview);
         mBookList.setAdapter(mRequestBookAdapter);
         mBookList.setOnItemClickListener(this);
-
+        
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 GlobalStaticVariable.BASEURL + "requestlist/?request=" + mRequest + "&token=" + mToken,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                    	progressBar = (ProgressBar) findViewById(R.id.requested_loading);
                         progressBar.setVisibility(View.GONE);
                         try {
                             mBookname = jsonObject.getString("bookname");
@@ -132,13 +131,13 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
 //        }
 //        return super.onOptionsItemSelected(item);
 //    }
-
+    
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //        Toast.makeText(this, mRequestList.get(i).toString(), Toast.LENGTH_SHORT).show();
     }
 
-
+    
     private class RequestBook extends EntryItem implements Requestable {
         private String barcode;
         private String status;
@@ -147,7 +146,7 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
         private String itemNumber;
         private String url;
         private String request;
-
+		
         public boolean isRequestable() {
             return (requestable == 1)? true: false;
         }

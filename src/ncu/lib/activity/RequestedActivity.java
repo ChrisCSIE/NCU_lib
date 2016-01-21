@@ -6,6 +6,7 @@ import java.util.HashMap;
 import ncu.lib.R;
 import ncu.lib.library.JsonObjectRequestWithPostParams;
 import ncu.lib.library.VolleyProvider;
+import ncu.lib.util.BookItem;
 import ncu.lib.util.RequestedAdapter;
 
 import org.json.JSONArray;
@@ -13,7 +14,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
@@ -29,43 +33,42 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 public class RequestedActivity extends Activity {
-	private ArrayList<String> mBookNameList;
-    private ArrayList<String> mItemsIDList;
-    private ArrayList<String> mStatusList;
-
+	
+	private ArrayList<BookItem> mBookItemList;
     private String mToken;
-
     private RequestedAdapter mRequestedAdapter;
-    private ListView mListView;
-    private ProgressBar progressBar;
-
     RequestQueue mQueue;
+    
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_requested);
+        
+//        Drawable actionbar_background = getResources().getDrawable(R.drawable.actionbar_background);
+//        getActionBar().setBackgroundDrawable(actionbar_background);
 
-        mItemsIDList = new ArrayList<String>();
-        mBookNameList = new ArrayList<String>();
-        mStatusList = new ArrayList<String>();
+        mBookItemList = new ArrayList<BookItem>();
 
-        mRequestedAdapter = new RequestedAdapter(this, mBookNameList, mStatusList);
-        mListView = (ListView) findViewById(R.id.requested_listview);
-        mListView.setAdapter(mRequestedAdapter);
+        mRequestedAdapter = new RequestedAdapter(this, mBookItemList);
+        ListView listView = (ListView) findViewById(R.id.requested_listview);
+        listView.setAdapter(mRequestedAdapter);
 
         mQueue = VolleyProvider.getQueue(this);
         mToken = GlobalStaticVariable.global.getToken();
 //        mToken = ((NcuLibraryApplication) getApplicationContext()).getToken();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET, GlobalStaticVariable.BASEURL + "user/reserve?token=" + mToken,
-                null, mResponseListener, mErrorListener);
+        if(mToken != null && !mToken.isEmpty()) {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET, GlobalStaticVariable.BASEURL + "user/reserve?token=" + mToken,
+                    null, mResponseListener, mErrorListener);
 
-        mQueue.add(jsonObjectRequest);
+            mQueue.add(jsonObjectRequest);
+        }
 
-        mListView.setItemsCanFocus(false);
-        mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listView.setItemsCanFocus(false);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         
         progressBar = (ProgressBar) findViewById(R.id.requested_loading);
         progressBar.setVisibility(View.VISIBLE);
@@ -74,13 +77,12 @@ public class RequestedActivity extends Activity {
     Response.Listener<JSONObject> mResponseListener = new Response.Listener<JSONObject>() {
         @Override
         public void onResponse(JSONObject jsonObject) {
-        	
             try {
                 TextView tv = (TextView) findViewById(R.id.no_requested);
                 tv.setVisibility(View.GONE);
-            	progressBar.setVisibility(View.GONE);
-
                 parseJsonBookArray(jsonObject);
+                
+                progressBar.setVisibility(View.GONE);
 
                 if(mRequestedAdapter.getCount() == 0) {
                     tv.setVisibility(View.VISIBLE);
@@ -98,13 +100,12 @@ public class RequestedActivity extends Activity {
                         public void onClick(View view) {
                             HashMap<String, String> params = new HashMap<String, String>();
 
+//                            final ProgressBar progressBar = (ProgressBar) findViewById(R.id.requested_loading);
                             progressBar.setVisibility(View.VISIBLE);
 
-                            for (int i = 0; i < mListView.getAdapter().getCount(); i++) {
-                                CheckedTextView temp = (CheckedTextView) mListView.getChildAt(i).findViewById(R.id.requested_item);
-
-                                if (temp.isChecked()) {
-                                    params.put(mItemsIDList.get(i), "on");
+                            for (BookItem book: mBookItemList) {
+                                if (book.isChecked()) {
+                                    params.put(book.getItemid(), "on");
                                 }
                             }
 
@@ -117,13 +118,14 @@ public class RequestedActivity extends Activity {
                                         public void onResponse(JSONObject jsonObject) {
                                             try {
                                                 parseJsonBookArray(jsonObject);
-
                                                 mRequestedAdapter.notifyDataSetChanged();
                                                 progressBar.setVisibility(View.GONE);
+                                                
+                                                Toast.makeText(getApplicationContext(),
+            											"已取消預約", Toast.LENGTH_SHORT).show();
 
                                                 if(mRequestedAdapter.getCount() == 0) {
                                                     button.setVisibility(View.GONE);
-
                                                     TextView tv = (TextView) findViewById(R.id.no_requested);
                                                     tv.setVisibility(View.VISIBLE);
                                                 }
@@ -135,13 +137,12 @@ public class RequestedActivity extends Activity {
                                     new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError volleyError) {
-
+//                                        	Toast.makeText(getApplicationContext(),
+//        											volleyError.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
                             );
-
                             mQueue.add(jsonObjectRequest);
-
                         }
                     });
                 }
@@ -152,17 +153,17 @@ public class RequestedActivity extends Activity {
     };
 
     private void parseJsonBookArray(JSONObject jsonObject) throws JSONException {
-        mBookNameList.clear();
-        mItemsIDList.clear();
-        mStatusList.clear();
+        mBookItemList.clear();
 
         JSONArray bookArray = jsonObject.getJSONArray("booksArray");
 
         for (int i = 0; i < bookArray.length(); ++i) {
-            JSONObject temp = bookArray.getJSONObject(i);
-            mBookNameList.add(temp.getString("bookname"));
-            mStatusList.add(temp.getString("status"));
-            mItemsIDList.add(temp.getString("item"));
+            JSONObject json = bookArray.getJSONObject(i);
+            BookItem book = new BookItem(json.getString("bookname"),
+                                             json.getString("status"),
+                                             json.getString("item"),
+                                             false);
+            mBookItemList.add(book);
         }
     }
 
@@ -172,4 +173,39 @@ public class RequestedActivity extends Activity {
             Toast.makeText(RequestedActivity.this, "Error!", Toast.LENGTH_SHORT).show();
         }
     };
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_requested, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.requested_refresh) {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET, GlobalStaticVariable.BASEURL + "user/reserve?token=" + mToken,
+                    null, mResponseListener, mErrorListener);
+            mQueue.add(jsonObjectRequest);
+        } else if (id == R.id.requested_select_all) {
+            for (BookItem book: mBookItemList) {
+                if (!book.isChecked()) book.setChecked(true);
+            }
+
+            mRequestedAdapter.notifyDataSetChanged();
+        } else if (id == R.id.requested_unselect_all) {
+            for (BookItem book: mBookItemList) {
+                if (book.isChecked()) book.setChecked(false);
+            }
+            mRequestedAdapter.notifyDataSetChanged();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

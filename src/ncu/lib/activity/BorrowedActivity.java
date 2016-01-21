@@ -35,48 +35,44 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ncu.lib.R;
+import ncu.lib.util.BookItem;
 import ncu.lib.util.RequestedAdapter;;
 
 public class BorrowedActivity extends Activity {
 
-	private ArrayList<String> mBookNameList;
-    private ArrayList<String> mItemsIDList;
-    private ArrayList<String> mStatusList;
-
+	private ArrayList<BookItem> mBookItemList;
     private String mToken;
-
     /* reuse the RequestedAdapter */
     private RequestedAdapter mBorrowedAdapter;
-    private ListView mListView;
-    private ProgressBar progressBar;
-
     RequestQueue mQueue;
+    
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrowed);
 
-        mItemsIDList = new ArrayList<String>();
-        mBookNameList = new ArrayList<String>();
-        mStatusList = new ArrayList<String>();
+        mBookItemList = new ArrayList<BookItem>();
 
-        mBorrowedAdapter = new RequestedAdapter(this, mBookNameList, mStatusList);
-        mListView = (ListView) findViewById(R.id.borrowed_listview);
-        mListView.setAdapter(mBorrowedAdapter);
+        mBorrowedAdapter = new RequestedAdapter(this, mBookItemList);
+        ListView listView = (ListView) findViewById(R.id.borrowed_listview);
+        listView.setAdapter(mBorrowedAdapter);
 
         mQueue = VolleyProvider.getQueue(this);
         mToken = GlobalStaticVariable.global.getToken();
 //        mToken = ((NcuLibraryApplication) getApplicationContext()).getToken();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET, GlobalStaticVariable.BASEURL + "user/info?token=" + mToken,
-                null, mResponseListener, mErrorListener);
+        if(mToken != null && !mToken.isEmpty()) {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET, GlobalStaticVariable.BASEURL + "user/info?token=" + mToken,
+                    null, mResponseListener, mErrorListener);
 
-        mQueue.add(jsonObjectRequest);
+            mQueue.add(jsonObjectRequest);
+        }
 
-        mListView.setItemsCanFocus(false);
-        mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listView.setItemsCanFocus(false);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         progressBar = (ProgressBar) findViewById(R.id.borrowed_loading);
         progressBar.setVisibility(View.VISIBLE);
@@ -85,12 +81,12 @@ public class BorrowedActivity extends Activity {
     Response.Listener<JSONObject> mResponseListener = new Response.Listener<JSONObject>() {
         @Override
         public void onResponse(JSONObject jsonObject) {
-        	progressBar.setVisibility(View.GONE);
             try {
                 TextView tv = (TextView) findViewById(R.id.no_borrowed);
                 tv.setVisibility(View.GONE);
-
                 parseJsonBookArray(jsonObject);
+                
+                progressBar.setVisibility(View.GONE);
 
                 if(mBorrowedAdapter.getCount() == 0) {
                     tv.setVisibility(View.VISIBLE);
@@ -103,18 +99,18 @@ public class BorrowedActivity extends Activity {
                     button.setVisibility(View.VISIBLE);
                     button.setClickable(true);
 
+                    // Extend the borrowed books
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             HashMap<String, String> params = new HashMap<String, String>();
-                            
+
+//                            final ProgressBar progressBar = (ProgressBar) findViewById(R.id.borrowed_loading);
                             progressBar.setVisibility(View.VISIBLE);
 
-                            for (int i = 0; i < mListView.getAdapter().getCount(); i++) {
-                                CheckedTextView temp = (CheckedTextView) mListView.getChildAt(i).findViewById(R.id.requested_item);
-
-                                if (temp.isChecked()) {
-                                    params.put(mItemsIDList.get(i), "on");
+                            for(BookItem book: mBookItemList) {
+                                if(book.isChecked()) {
+                                    params.put(book.getItemid(), "on");
                                 }
                             }
 
@@ -130,6 +126,9 @@ public class BorrowedActivity extends Activity {
 
                                                 mBorrowedAdapter.notifyDataSetChanged();
                                                 progressBar.setVisibility(View.GONE);
+                                                
+                                                Toast.makeText(getApplicationContext(),
+            											"¤wÄò­É", Toast.LENGTH_SHORT).show();
 
                                                 if(mBorrowedAdapter.getCount() == 0) {
                                                     button.setVisibility(View.GONE);
@@ -141,18 +140,10 @@ public class BorrowedActivity extends Activity {
                                                 e.printStackTrace();
                                             }
                                         }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError volleyError) {
-                                            Log.d("test", "VolleyError: " + volleyError.getMessage());
-                                            //volleyError.printStackTrace();
-                                        }
-                                    }
+                                    }, mErrorListener
                             );
 
                             mQueue.add(jsonObjectRequest);
-
                         }
                     });
                 }
@@ -163,17 +154,16 @@ public class BorrowedActivity extends Activity {
     };
 
     private void parseJsonBookArray(JSONObject jsonObject) throws JSONException {
-        mBookNameList.clear();
-        mItemsIDList.clear();
-        mStatusList.clear();
-
+        mBookItemList.clear();
         JSONArray bookArray = jsonObject.getJSONArray("booksArray");
 
         for (int i = 0; i < bookArray.length(); ++i) {
-            JSONObject temp = bookArray.getJSONObject(i);
-            mBookNameList.add(temp.getString("bookname"));
-            mStatusList.add(temp.getString("status"));
-            mItemsIDList.add(temp.getString("item"));
+            JSONObject json = bookArray.getJSONObject(i);
+            BookItem book = new BookItem(json.getString("bookname"),
+                                         json.getString("status"),
+                                         json.getString("item"),
+                                         false);
+            mBookItemList.add(book);
         }
     }
 
@@ -182,5 +172,37 @@ public class BorrowedActivity extends Activity {
         public void onErrorResponse(VolleyError volleyError) {
             Toast.makeText(BorrowedActivity.this, "Error!", Toast.LENGTH_SHORT).show();
         }
-    };
+    };@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_borrowed, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.borrowed_refresh) {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET, GlobalStaticVariable.BASEURL + "user/info?token=" + mToken,
+                    null, mResponseListener, mErrorListener);
+            mQueue.add(jsonObjectRequest);
+        } else if (id == R.id.borrowed_select_all) {
+            for(BookItem book: mBookItemList) {
+                if(!book.isChecked()) book.setChecked(true);
+            }
+            mBorrowedAdapter.notifyDataSetChanged();
+        } else if (id == R.id.borrowed_unselect_all) {
+            for (BookItem book: mBookItemList) {
+                if (book.isChecked()) book.setChecked(false);
+            }
+            mBorrowedAdapter.notifyDataSetChanged();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

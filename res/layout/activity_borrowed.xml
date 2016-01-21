@@ -27,15 +27,14 @@
         android:id="@+id/borrowed_listview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/extend_borrowed_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:headerDividersEnabled="true"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="5dp"
+        android:headerDividersEnabled="true"
         android:paddingLeft="15sp"
-        android:paddingRight="10sp"/>
-
-
+        android:paddingRight="10sp" />
 
     <Button
         android:layout_width="fill_parent"
