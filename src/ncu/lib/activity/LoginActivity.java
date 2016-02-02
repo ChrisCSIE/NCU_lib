@@ -42,7 +42,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 public class LoginActivity extends Activity {
-	private boolean debugMode = false;
+	private boolean debugMode = true;
 	private Button login, clean;
 	private EditText account, pwd;
 	private ImageView welcome;
@@ -161,7 +161,7 @@ public class LoginActivity extends Activity {
 			// final NcuLibraryApplication global = new
 			// NcuLibraryApplication();
 			
-			if (debugMode){
+			if (debugMode && user.isEmpty() && passwd.isEmpty()){
 				user = "104522100";
 				passwd = "104522100";
 			}

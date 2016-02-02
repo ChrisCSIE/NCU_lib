@@ -154,10 +154,14 @@ public final class R {
         public static final int request_book=0x7f080003;
     }
     public static final class string {
+        public static final int action_example=0x7f06002d;
+        public static final int action_search=0x7f06002e;
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int barcode=0x7f06001a;
+        public static final int book_detail=0x7f06003a;
         public static final int bookname=0x7f060010;
+        public static final int borrowed_books=0x7f060038;
         public static final int button_cancel_request=0x7f06001e;
         public static final int button_extend_borrowed=0x7f060021;
         public static final int callnumber=0x7f060017;
@@ -166,12 +170,19 @@ public final class R {
         public static final int isbn=0x7f060011;
         public static final int link=0x7f060014;
         public static final int location=0x7f060018;
+        public static final int login_alert_title=0x7f060031;
+        public static final int login_failed=0x7f06003b;
+        public static final int login_negative=0x7f060033;
+        public static final int login_positive=0x7f060032;
         public static final int logining=0x7f060004;
         public static final int network_issue=0x7f060003;
         public static final int next=0x7f06000f;
+        public static final int passwd_text=0x7f060035;
         public static final int prev=0x7f06000e;
         public static final int request=0x7f06001b;
         public static final int request_button=0x7f060008;
+        public static final int requested_books=0x7f060039;
+        public static final int savepasswd_checkbox=0x7f060036;
         public static final int search_button=0x7f060009;
         public static final int search_description=0x7f06000a;
         public static final int search_hint=0x7f06000b;
@@ -181,17 +192,28 @@ public final class R {
         public static final int text_refresh=0x7f060024;
         public static final int text_select_all=0x7f060025;
         public static final int text_unselect_all=0x7f060026;
+        public static final int title_activity_book_detail=0x7f060030;
         public static final int title_activity_book_detail_list=0x7f060015;
         public static final int title_activity_book_list=0x7f06000d;
         public static final int title_activity_borrowed=0x7f06001f;
         public static final int title_activity_main_menu_view=0x7f060005;
         public static final int title_activity_menu=0x7f060007;
+        public static final int title_activity_my_activity2=0x7f06002f;
         public static final int title_activity_new_books_list=0x7f060023;
         public static final int title_activity_news=0x7f060022;
         public static final int title_activity_request_book=0x7f060016;
+        public static final int title_activity_request_result=0x7f060037;
         public static final int title_activity_requested=0x7f06001c;
         public static final int title_activity_root=0x7f060006;
         public static final int title_activity_search=0x7f06000c;
+        public static final int title_personal_fragment=0x7f06002c;
+        public static final int title_search_fragment=0x7f06002b;
+        public static final int title_section0=0x7f060027;
+        public static final int title_section1=0x7f060028;
+        public static final int title_section2=0x7f060029;
+        public static final int title_section3=0x7f06002a;
+        public static final int try_again=0x7f06003c;
+        public static final int user_text=0x7f060034;
         public static final int version=0x7f060013;
     }
     public static final class style {
