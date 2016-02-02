@@ -14,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
@@ -46,6 +48,13 @@ public class RequestedActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_requested);
         
+//        int actionBarTitleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
+//        if (actionBarTitleId > 0) {
+//            TextView title = (TextView) findViewById(actionBarTitleId);
+//            if (title != null) {
+//                title.setTextColor(R.drawable.actionbar_text);
+//            }
+//        }
 //        Drawable actionbar_background = getResources().getDrawable(R.drawable.actionbar_background);
 //        getActionBar().setBackgroundDrawable(actionbar_background);
 

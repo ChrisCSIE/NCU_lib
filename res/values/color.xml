@@ -6,14 +6,20 @@
     <drawable name="button">#16a085</drawable>
     <drawable name="button_word">#E4F1FE</drawable> -->
 
-    <drawable name="actionbar_background">#FFFF00</drawable>
+    <drawable name="actionbar_background">#EAEAEA</drawable>
+    <drawable name="actionbar_text">#000000</drawable>
+    
     <!-- #F37D2A -->
     <!-- <drawable name="background">#F1F5EF</drawable> -->
-    <drawable name="white_background">#ffffff</drawable>
+    <drawable name="white_background">#FFFFFF</drawable>
     <drawable name="word">#0678A9</drawable>
     <drawable name="button">#0175BE</drawable>
     <drawable name="button_word">#F1F5EF</drawable>
     <drawable name="loading_background">#80000000</drawable>
     <drawable name="not_requestable">#77A6A6A6</drawable>
+    
+    
+    <color name="button">#5ECBBC</color>
+    <color name="not_requestable">#888888</color>
 
 </resources>

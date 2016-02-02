@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import ncu.lib.R.layout;
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +54,16 @@ public class BorrowedActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrowed);
+        
+//        int actionBarTitleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
+//        if (actionBarTitleId > 0) {
+//            TextView title = (TextView) findViewById(actionBarTitleId);
+//            if (title != null) {
+//                title.setTextColor(R.drawable.actionbar_text);
+//            }
+//        }
+//        Drawable actionbar_background = getResources().getDrawable(R.drawable.actionbar_background);
+//        getActionBar().setBackgroundDrawable(actionbar_background);
 
         mBookItemList = new ArrayList<BookItem>();
 

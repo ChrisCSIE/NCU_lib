@@ -20,10 +20,10 @@ public class MenuActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// setContentView(R.layout.activity_menu);
-		Drawable title = getResources().getDrawable(R.drawable.title);
-		getActionBar().setBackgroundDrawable(title);
-		getActionBar().setTitle("國立中央大學圖書館");
-		// getActionBar().hide();
+//		Drawable title = getResources().getDrawable(R.drawable.title);
+//		getActionBar().setBackgroundDrawable(title);
+//		getActionBar().setTitle("國立中央大學圖書館");
+		getActionBar().hide();
 		setContentView(new MainMenuView(MenuActivity.this));
 	}
 	

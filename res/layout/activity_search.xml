@@ -13,7 +13,7 @@
         android:id="@+id/keyword"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"
@@ -27,19 +27,20 @@
 
     <Button
         android:id="@+id/search_button"
-        style="?android:attr/borderlessButtonStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/keyword"
         android:layout_below="@+id/keyword"
         android:layout_marginTop="14dp"
-        android:background="@drawable/button"
         android:drawableLeft="@drawable/ic_action_search"
         android:paddingLeft="35dp"
-        android:paddingRight="35sp"
+        android:paddingRight="35dp"
         android:text="@string/search_button"
         android:textColor="@drawable/button_word"
         android:textSize="30sp" />
+    <!-- 
+        android:background="@drawable/button"
+        android:layout_alignLeft="@+id/keyword"
+        style="?android:attr/borderlessButtonStyle" -->
 	<!-- 
     <TextView
         android:layout_width="wrap_content"
@@ -78,7 +79,6 @@
             android:indeterminate="true" />
     </RelativeLayout>
 
-
     <RelativeLayout
         android:id="@+id/infomationPanel"
         android:layout_width="wrap_content"
@@ -111,12 +111,12 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@drawable/button"
             android:drawableLeft="@drawable/ic_action_back"
             android:paddingLeft="10sp"
             android:paddingRight="10sp"
             android:text="@string/prev"
             android:textColor="@drawable/button_word" />
+        <!-- android:background="@drawable/button" -->
 
         <Button
             android:id="@+id/next"
@@ -129,12 +129,12 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@drawable/button"
             android:drawableRight="@drawable/ic_action_forward"
             android:paddingLeft="10sp"
             android:paddingRight="10sp"
             android:text="@string/next"
             android:textColor="@drawable/button_word" />
+        <!-- android:background="@drawable/button" -->
     </RelativeLayout>
 
 </RelativeLayout>

@@ -72,9 +72,8 @@
                 android:id="@+id/account"
                 android:layout_width="100dip"
                 android:layout_height="40dip"
-                android:layout_centerHorizontal="true"
+                android:gravity="center"
                 android:background="@drawable/edittext_style"
-                android:minWidth="180px"
                 android:singleLine="true"
                 android:text=""
                 android:textSize="16dip" />
@@ -107,11 +106,11 @@
                 android:id="@+id/pwd"
                 android:layout_width="100dip"
                 android:layout_height="40dip"
+                android:gravity="center"
                 android:background="@drawable/edittext_style"
-                android:minWidth="180px"
                 android:password="true"
                 android:singleLine="true"
-                android:textSize="   16dip" />
+                android:textSize="16dip" />
         </LinearLayout>
 
         <LinearLayout

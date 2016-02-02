@@ -56,7 +56,7 @@ public class LoginActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		getActionBar().hide();
+//		getActionBar().hide();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		/* initial layout component*/

@@ -42,7 +42,6 @@
         android:text="@string/button_extend_borrowed"
         android:id="@+id/extend_borrowed_button"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/button"
         android:textColor="@drawable/button_word"
         android:visibility="gone" />
 

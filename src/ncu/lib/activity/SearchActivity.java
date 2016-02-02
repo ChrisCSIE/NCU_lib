@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import ncu.lib.R;
 import ncu.lib.library.VolleyProvider;
+import ncu.lib.util.SearchBookAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,12 +40,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 public class SearchActivity extends Activity {
 	private EditText keyword;
 	private Button searchButton;
-	private ArrayAdapter<String> mListAdapter;
+//	private ArrayAdapter<String> mListAdapter;
     private ListView mListView;
     private ArrayList<String> mBookNameList;
     private ArrayList<String> mBookIDList;
     private String mQueryString;
     private RelativeLayout loadingPanel, searchLayout;
+    private SearchBookAdapter bookAdapter;
 
     RequestQueue mQueue;
 
@@ -55,6 +57,7 @@ public class SearchActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
+		
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		
 		mListView = (ListView) findViewById(R.id.bookListView);
@@ -65,12 +68,13 @@ public class SearchActivity extends Activity {
 
         mBookIDList = new ArrayList<String>();
         mBookNameList = new ArrayList<String>();
-        mListAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_list_item_1, mBookNameList);
-
+//        mListAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_list_item_1, mBookNameList);
+        bookAdapter = new SearchBookAdapter(this, mBookNameList);
+        
         mQueue = VolleyProvider.getQueue(SearchActivity.this);
 
-
-        mListView.setAdapter(mListAdapter);
+//        mListView.setAdapter(mListAdapter);
+        mListView.setAdapter(bookAdapter);
         mListView.setOnItemClickListener(mBookClickListener);
 
         Button nextBtn = (Button) findViewById(R.id.next);
@@ -190,14 +194,17 @@ public class SearchActivity extends Activity {
                     mBookNameList.add(i, temp.getString("booktitle"));
                     mBookIDList.add(i, temp.getString("url"));
 
-                    mListAdapter.notifyDataSetChanged();
-
+//                    mListAdapter.notifyDataSetChanged();
+                    bookAdapter.notifyDataSetChanged();
                     loadingPanel.setVisibility(View.GONE);
                 }
-                if(mListAdapter != null)
-                    mListAdapter.notifyDataSetChanged();
+//                if(mListAdapter != null)
+//                    mListAdapter.notifyDataSetChanged();
+//                else
+                
+                if(bookAdapter != null)
+                    bookAdapter.notifyDataSetChanged();
                 else
-                	
 
                 loadingPanel.setVisibility(View.GONE);
                 mListView.setSelection(0);
