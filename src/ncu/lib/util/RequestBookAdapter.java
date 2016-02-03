@@ -32,13 +32,13 @@ import android.widget.Toast;
  * Created by chenli-han on 2014/8/14.
  */
 public class RequestBookAdapter extends ArrayAdapter<Item> {
-    //private Context context;
+    private Context context;
     private ArrayList<Item> items;
     private LayoutInflater inflater;
 
     public RequestBookAdapter(Context context, ArrayList<Item> items) {
         super(context, 0, items);
-        //this.context = context;
+        this.context = context;
         this.items = items;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -107,15 +107,27 @@ public class RequestBookAdapter extends ArrayAdapter<Item> {
                                             @Override
                                             public void onResponse(JSONObject jsonObject) {
                                                 try {
-                                                    String getMessage = jsonObject.getString("message");
-                                                	String message = getMessage!=null? "已交由借書系統處理,稍後可以到「預約書目」查看": "";
-                                                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                                                	String message;
+                                                	if (jsonObject.getBoolean("success")==true){
+                                                		message = context.getResources().getString(R.string.request_result_success);
+                                                		button.setClickable(false);
+                                                		button.setBackgroundColor(R.drawable.not_requestable);
+                                                	}
+                                                	else {
+                                                		message = context.getResources().getString(R.string.request_result_fail);
+                                                	}
+                                                	Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+//                                                    String getMessage = jsonObject.getString("message");
+//                                                	String message = getMessage!=null? 
+//                                                			context.getResources().getString(R.string.request_result) : 
+//                                                			context.getResources().getString(R.string.network_issue);
+//                                                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
 //                                                    button.setVisibility(View.GONE);
 //                                                    TextView textView = (TextView) findViewById(R.id.request_result);
 //                                                    textView.setText(message);
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
-                                                    String message = "預約失敗,請稍後再試";
+                                                    String message = (String)context.getResources().getText(R.string.network_issue);
                                                     Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
                                                 }
                                             }

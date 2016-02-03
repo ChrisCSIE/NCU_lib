@@ -109,22 +109,22 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 
 		// 館藏目錄
 		canvas.drawBitmap(Rescaled(bitmapSearch), BUTTON_SEARCH_XOFFSET, BUTTON_SEARCH_YOFFSET, null);
-		canvas.drawText("館藏目錄", BUTTON_SEARCH_XOFFSET, BUTTON_SEARCH_YOFFSET + textGap, paint);
+		canvas.drawText((String)getResources().getText(R.string.title_search), BUTTON_SEARCH_XOFFSET, BUTTON_SEARCH_YOFFSET + textGap, paint);
 		// 借書記錄
 		canvas.drawBitmap(Rescaled(bitmapBorrowed), BUTTON_BORROWED_XOFFSET, BUTTON_BORROWED_YOFFSET, null);
-		canvas.drawText("借書記錄", BUTTON_BORROWED_XOFFSET, BUTTON_BORROWED_YOFFSET + textGap, paint);
+		canvas.drawText((String)getResources().getText(R.string.title_borrowed), BUTTON_BORROWED_XOFFSET, BUTTON_BORROWED_YOFFSET + textGap, paint);
 		// 預約書目
 		canvas.drawBitmap(Rescaled(bitmapRequested), BUTTON_REQUESTED_XOFFSET, BUTTON_REQUESTED_YOFFSET, null);
-		canvas.drawText("預約書目", BUTTON_REQUESTED_XOFFSET, BUTTON_REQUESTED_YOFFSET + textGap, paint);
+		canvas.drawText((String)getResources().getText(R.string.title_requested), BUTTON_REQUESTED_XOFFSET, BUTTON_REQUESTED_YOFFSET + textGap, paint);
 		// 最新消息
 		canvas.drawBitmap(Rescaled(bitmapNews), BUTTON_NEWS_XOFFSET, BUTTON_NEWS_YOFFSET, null);
-		canvas.drawText("最新消息", BUTTON_NEWS_XOFFSET, BUTTON_NEWS_YOFFSET + textGap, paint);
+		canvas.drawText((String)getResources().getText(R.string.title_news), BUTTON_NEWS_XOFFSET, BUTTON_NEWS_YOFFSET + textGap, paint);
 		// 新書推薦
 		canvas.drawBitmap(Rescaled(bitmapNewBook), BUTTON_NEWBOOK_XOFFSET, BUTTON_NEWBOOK_YOFFSET, null);
-		canvas.drawText("新進館藏", BUTTON_NEWBOOK_XOFFSET, BUTTON_NEWBOOK_YOFFSET + textGap, paint);
+		canvas.drawText((String)getResources().getText(R.string.title_newbooks), BUTTON_NEWBOOK_XOFFSET, BUTTON_NEWBOOK_YOFFSET + textGap, paint);
 		// 通知
 		canvas.drawBitmap(Rescaled(bitmapNotice), BUTTON_NOTICE_XOFFSET, BUTTON_NOTICE_YOFFSET, null);
-		canvas.drawText("借還書須知", BUTTON_NOTICE_XOFFSET-25, BUTTON_NOTICE_YOFFSET + textGap, paint);
+		canvas.drawText((String)getResources().getText(R.string.title_notice), BUTTON_NOTICE_XOFFSET-25, BUTTON_NOTICE_YOFFSET + textGap, paint);
 //		// 開館時間
 //		canvas.drawBitmap(Rescaled(bitmapOpeningHours), BUTTON_OPENING_XOFFSET, BUTTON_OPENING_YOFFSET, null);
 //		canvas.drawText("開館時間", BUTTON_OPENING_XOFFSET, BUTTON_OPENING_YOFFSET + textGap, paint);

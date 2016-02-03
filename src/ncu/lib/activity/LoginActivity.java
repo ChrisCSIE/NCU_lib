@@ -42,7 +42,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 public class LoginActivity extends Activity {
-	private boolean debugMode = true;
+	private boolean debugMode = false;
 	private Button login, clean;
 	private EditText account, pwd;
 	private ImageView welcome;
@@ -68,7 +68,7 @@ public class LoginActivity extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);   
         int screenHeight = metrics.heightPixels;
         int screenWidth = metrics.widthPixels;
-        Toast.makeText(this, String.valueOf(screenHeight)+":"+String.valueOf(screenWidth), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, String.valueOf(screenHeight)+":"+String.valueOf(screenWidth), Toast.LENGTH_SHORT).show();
         
 		LayoutParams welcome_parms = welcome.getLayoutParams();
 		LayoutParams component_parms = componentLayout.getLayoutParams();
@@ -292,7 +292,7 @@ public class LoginActivity extends Activity {
 			// 是否要退出
 			if (isExit == false) {
 				isExit = true; // 記錄下一次要退出
-				Toast.makeText(this, "再按一次Back退出APP", Toast.LENGTH_SHORT)
+				Toast.makeText(this, getResources().getText(R.string.press_back_again), Toast.LENGTH_SHORT)
 						.show();
 
 				// 如果超過兩秒則恢復預設值

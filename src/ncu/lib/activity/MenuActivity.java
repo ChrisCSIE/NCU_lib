@@ -45,7 +45,7 @@ public class MenuActivity extends Activity {
 			// 是否要退出
 			if (isExit == false) {
 				isExit = true; // 記錄下一次要退出
-				Toast.makeText(this, "再按一次Back退出APP", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, getResources().getText(R.string.press_back_again), Toast.LENGTH_SHORT).show();
 
 				// 如果超過兩秒則恢復預設值
 				if (!hasTask) {

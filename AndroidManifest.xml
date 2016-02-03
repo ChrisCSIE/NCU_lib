@@ -32,10 +32,12 @@
             android:name=".activity.MainMenuView"
             android:label="@string/title_activity_main_menu_view" >
         </activity>
+        <!-- 
         <activity
             android:name=".activity.RootActivity"
             android:label="@string/title_activity_root" >
         </activity>
+         -->
         <activity
             android:name=".activity.MenuActivity"
             android:label="@string/title_activity_menu"
@@ -48,12 +50,14 @@
         </activity>
         <activity
             android:name=".activity.BookDetailActivity"
-            android:label="@string/title_activity_book_list" >
+            android:label="@string/title_activity_book_detail" >
         </activity>
+        <!-- 
         <activity
             android:name=".activity.BookDetailListActivity"
             android:label="@string/title_activity_book_detail_list" >
         </activity>
+         -->
         <activity
             android:name=".activity.RequestBookActivity"
             android:label="@string/title_activity_request_book" >
