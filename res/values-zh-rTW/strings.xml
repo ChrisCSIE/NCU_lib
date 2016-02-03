@@ -4,9 +4,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="app_name">中大圖書館</string>
     <string name="action_settings">設定</string>
-    <string name="account">帳 號 : </string>
-    <string name="password">密 碼 : </string>
-    <string name="save_acc_pwd">記憶帳號密碼</string>
+    <string name="account">帳號 :\u0020</string>
+    <string name="password">密碼 :\u0020</string>
+    <string name="save_usr_pwd">記憶帳號密碼</string>
     <string name="network_issue">網路無法連接</string>
     <string name="login">登入</string>
     <string name="clean">清除</string>

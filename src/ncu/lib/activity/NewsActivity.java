@@ -18,6 +18,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 
 import com.android.volley.RequestQueue;
@@ -31,8 +32,8 @@ public class NewsActivity extends Activity {
     private ListView mListView;
     private SimpleAdapter mAdapter;
     private ArrayList<String> mContent = new ArrayList<String>();
-
-    private String mTarget;
+    //private String mTarget;
+    private ProgressBar progressBar;
     
     RequestQueue mQueue;
 
@@ -40,6 +41,9 @@ public class NewsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
+		
+		progressBar = (ProgressBar) findViewById(R.id.news_loading);
+        progressBar.setVisibility(View.VISIBLE);
 		
 		mQueue = VolleyProvider.getQueue(this);
 
@@ -72,6 +76,8 @@ public class NewsActivity extends Activity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray jsonArray) {
+                    	progressBar.setVisibility(View.GONE);
+                    	
                         for(int i = 0; i < jsonArray.length(); ++i) {
                             try {
                                 JSONObject json = jsonArray.getJSONObject(i);

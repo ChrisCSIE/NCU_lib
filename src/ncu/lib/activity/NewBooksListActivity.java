@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -32,11 +33,16 @@ public class NewBooksListActivity extends Activity implements ncu.lib.util.Async
 	private ListView mListView;
     private SimpleAdapter mAdapter;
     private List mList;
+    
+    private ProgressBar progressBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_books_list);
+		
+		progressBar = (ProgressBar) findViewById(R.id.newbooks_loading);
+        progressBar.setVisibility(View.VISIBLE);
         
         DownloadRSS asyncTask = new DownloadRSS();
         asyncTask.delegate = this;
@@ -67,6 +73,7 @@ public class NewBooksListActivity extends Activity implements ncu.lib.util.Async
 	@Override
 	public void processFinish(List list) {
 		// TODO Auto-generated method stub
+    	progressBar.setVisibility(View.GONE);
 		mList = list;
         mAdapter = new SimpleAdapter(this,
                 list,
@@ -98,7 +105,6 @@ public class NewBooksListActivity extends Activity implements ncu.lib.util.Async
         protected String doInBackground(String... urls) {
             try {
                 loadXmlFromNetwork(urls[0]);
-
                 return null;
             } catch (IOException e) {
                 e.printStackTrace();

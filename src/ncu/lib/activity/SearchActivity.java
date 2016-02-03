@@ -49,9 +49,9 @@ public class SearchActivity extends Activity {
     private SearchBookAdapter bookAdapter;
 
     RequestQueue mQueue;
-
-    private String mNext;
-    private String mPrev;
+    
+    private Button nextBtn, prevBtn;
+    private String mNext, mPrev;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +77,8 @@ public class SearchActivity extends Activity {
         mListView.setAdapter(bookAdapter);
         mListView.setOnItemClickListener(mBookClickListener);
 
-        Button nextBtn = (Button) findViewById(R.id.next);
-        Button prevBtn = (Button) findViewById(R.id.prev);
+        nextBtn = (Button) findViewById(R.id.next);
+        prevBtn = (Button) findViewById(R.id.prev);
 
         nextBtn.setOnClickListener(mButtonOnClick);
         prevBtn.setOnClickListener(mButtonOnClick);
@@ -121,6 +121,8 @@ public class SearchActivity extends Activity {
 	
 		        mQueue.add(jsonObjectRequest);
 		        loadingPanel.setVisibility(View.VISIBLE);
+		        prevBtn.setClickable(false);
+                nextBtn.setClickable(false);
 			}
 		}
 	};
@@ -132,6 +134,8 @@ public class SearchActivity extends Activity {
                 case R.id.next:
                     if(!mNext.isEmpty()) {
                     	loadingPanel.setVisibility(View.VISIBLE);
+                    	prevBtn.setClickable(false);
+                        nextBtn.setClickable(false);
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                                 Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString + "&url=" + mNext, null, mResponseListener, mErrorListener);
                         mQueue.add(jsonObjectRequest);
@@ -144,6 +148,8 @@ public class SearchActivity extends Activity {
                 case R.id.prev:
                     if(!mPrev.isEmpty()) {
                     	loadingPanel.setVisibility(View.VISIBLE);
+                    	prevBtn.setClickable(false);
+                        nextBtn.setClickable(false);
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                                 Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString + "&url=" + mPrev, null, mResponseListener, mErrorListener);
                         mQueue.add(jsonObjectRequest);
@@ -209,8 +215,8 @@ public class SearchActivity extends Activity {
                 loadingPanel.setVisibility(View.GONE);
                 mListView.setSelection(0);
 
-                Button prevBtn = (Button) findViewById(R.id.prev);
-                Button nextBtn = (Button) findViewById(R.id.next);
+//                Button prevBtn = (Button) findViewById(R.id.prev);
+//                Button nextBtn = (Button) findViewById(R.id.next);
 
                 prevBtn.setClickable(true);
                 nextBtn.setClickable(true);
