@@ -139,8 +139,16 @@ public class BorrowedActivity extends Activity {
                                                 mBorrowedAdapter.notifyDataSetChanged();
                                                 progressBar.setVisibility(View.GONE);
                                                 
+//                                                Toast.makeText(getApplicationContext(),
+//            											"已續借", Toast.LENGTH_SHORT).show();
+                                                String message;
+                                                if (jsonObject.getBoolean("success")==true)
+                                                	message = (String)getResources().getText(R.string.extend_borrowed_success);
+                                                else
+                                                	message = (String)getResources().getText(R.string.extend_borrowed_fail);
+                                                
                                                 Toast.makeText(getApplicationContext(),
-            											"已續借", Toast.LENGTH_SHORT).show();
+            											message, Toast.LENGTH_SHORT).show();
 
                                                 if(mBorrowedAdapter.getCount() == 0) {
                                                     button.setVisibility(View.GONE);

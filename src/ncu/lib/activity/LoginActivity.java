@@ -68,14 +68,14 @@ public class LoginActivity extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);   
         int screenHeight = metrics.heightPixels;
         int screenWidth = metrics.widthPixels;
-        //Toast.makeText(this, String.valueOf(screenHeight)+":"+String.valueOf(screenWidth), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, String.valueOf(screenHeight)+":"+String.valueOf(screenWidth), Toast.LENGTH_SHORT).show();
         
 		LayoutParams welcome_parms = welcome.getLayoutParams();
 		LayoutParams component_parms = componentLayout.getLayoutParams();
 		
-        if (screenHeight < 1000) {
-//        	loginLayout.setBackgroundResource(R.drawable.white_background);
-        	loginLayout.setBackgroundColor(Color.TRANSPARENT);
+        if (screenHeight < 1200) {
+        	loginLayout.setBackgroundResource(R.drawable.white_background);
+//        	loginLayout.setBackgroundColor(Color.TRANSPARENT);
     		welcome_parms.height = screenHeight/2 - screenHeight/10;
     		component_parms.height = screenHeight/2 - screenHeight/20;
         }

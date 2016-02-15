@@ -2,6 +2,7 @@ package ncu.lib.activity;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import ncu.lib.R;
@@ -83,8 +84,8 @@ public class SearchActivity extends Activity {
         nextBtn.setOnClickListener(mButtonOnClick);
         prevBtn.setOnClickListener(mButtonOnClick);
 
-        nextBtn.setClickable(false);
-        prevBtn.setClickable(false);
+//        nextBtn.setClickable(false);
+//        prevBtn.setClickable(false);
         
         loadingPanel = (RelativeLayout)findViewById(R.id.loadingPanel);
         loadingPanel.setVisibility(View.GONE);
@@ -112,17 +113,28 @@ public class SearchActivity extends Activity {
 
             mQueryString = keyword.getText().toString();
 			if(mQueryString.equals("")) {
-				Toast.makeText(SearchActivity.this, "½Ð¿é¤JÃöÁä¦r", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SearchActivity.this, getResources().getString(
+						R.string.search_hint), Toast.LENGTH_SHORT).show();
 	        }
 			else {
+	            try {
+					mQueryString = URLEncoder.encode(mQueryString, "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
 		                Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString,
 		                null, mResponseListener, mErrorListener);
 	
 		        mQueue.add(jsonObjectRequest);
 		        loadingPanel.setVisibility(View.VISIBLE);
-		        prevBtn.setClickable(false);
-                nextBtn.setClickable(false);
+//		        prevBtn.setClickable(false);
+//                nextBtn.setClickable(false);
+		        prevBtn.setVisibility(View.GONE);
+            	nextBtn.setVisibility(View.GONE);
+            	
+            	mListView.setVisibility(View.GONE);
 			}
 		}
 	};
@@ -134,8 +146,11 @@ public class SearchActivity extends Activity {
                 case R.id.next:
                     if(!mNext.isEmpty()) {
                     	loadingPanel.setVisibility(View.VISIBLE);
-                    	prevBtn.setClickable(false);
-                        nextBtn.setClickable(false);
+//                    	prevBtn.setClickable(false);
+//                        nextBtn.setClickable(false);
+                    	prevBtn.setVisibility(View.GONE);
+                    	nextBtn.setVisibility(View.GONE);
+                    	mListView.setVisibility(View.GONE);
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                                 Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString + "&url=" + mNext, null, mResponseListener, mErrorListener);
                         mQueue.add(jsonObjectRequest);
@@ -148,8 +163,11 @@ public class SearchActivity extends Activity {
                 case R.id.prev:
                     if(!mPrev.isEmpty()) {
                     	loadingPanel.setVisibility(View.VISIBLE);
-                    	prevBtn.setClickable(false);
-                        nextBtn.setClickable(false);
+//                    	prevBtn.setClickable(false);
+//                        nextBtn.setClickable(false);
+                    	prevBtn.setVisibility(View.GONE);
+                    	nextBtn.setVisibility(View.GONE);
+                    	mListView.setVisibility(View.GONE);
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                                 Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString + "&url=" + mPrev, null, mResponseListener, mErrorListener);
                         mQueue.add(jsonObjectRequest);
@@ -218,8 +236,11 @@ public class SearchActivity extends Activity {
 //                Button prevBtn = (Button) findViewById(R.id.prev);
 //                Button nextBtn = (Button) findViewById(R.id.next);
 
-                prevBtn.setClickable(true);
-                nextBtn.setClickable(true);
+//                prevBtn.setClickable(true);
+//                nextBtn.setClickable(true);
+                prevBtn.setVisibility(View.VISIBLE);
+                nextBtn.setVisibility(View.VISIBLE);
+                mListView.setVisibility(View.VISIBLE);
 
             } catch (JSONException e) {
                 e.printStackTrace();

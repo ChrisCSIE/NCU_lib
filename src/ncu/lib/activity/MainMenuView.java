@@ -124,7 +124,7 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 		canvas.drawText((String)getResources().getText(R.string.title_newbooks), BUTTON_NEWBOOK_XOFFSET, BUTTON_NEWBOOK_YOFFSET + textGap, paint);
 		// 通知
 		canvas.drawBitmap(Rescaled(bitmapNotice), BUTTON_NOTICE_XOFFSET, BUTTON_NOTICE_YOFFSET, null);
-		canvas.drawText((String)getResources().getText(R.string.title_notice), BUTTON_NOTICE_XOFFSET-25, BUTTON_NOTICE_YOFFSET + textGap, paint);
+		canvas.drawText((String)getResources().getText(R.string.title_notice), BUTTON_NOTICE_XOFFSET, BUTTON_NOTICE_YOFFSET + textGap, paint);
 //		// 開館時間
 //		canvas.drawBitmap(Rescaled(bitmapOpeningHours), BUTTON_OPENING_XOFFSET, BUTTON_OPENING_YOFFSET, null);
 //		canvas.drawText("開館時間", BUTTON_OPENING_XOFFSET, BUTTON_OPENING_YOFFSET + textGap, paint);

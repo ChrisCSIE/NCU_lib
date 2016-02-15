@@ -115,7 +115,8 @@
             android:paddingLeft="10sp"
             android:paddingRight="10sp"
             android:text="@string/prev"
-            android:textColor="@drawable/button_word" />
+            android:textColor="@drawable/button_word"
+            android:visibility="gone" />
         <!-- android:background="@drawable/button" -->
 
         <Button
@@ -133,7 +134,8 @@
             android:paddingLeft="10sp"
             android:paddingRight="10sp"
             android:text="@string/next"
-            android:textColor="@drawable/button_word" />
+            android:textColor="@drawable/button_word"
+            android:visibility="gone" />
         <!-- android:background="@drawable/button" -->
     </RelativeLayout>
 

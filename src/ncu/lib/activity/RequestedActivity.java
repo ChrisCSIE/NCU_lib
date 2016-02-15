@@ -130,8 +130,14 @@ public class RequestedActivity extends Activity {
                                                 mRequestedAdapter.notifyDataSetChanged();
                                                 progressBar.setVisibility(View.GONE);
                                                 
+                                                String message;
+                                                if (jsonObject.getBoolean("success")==true)
+                                                	message = (String)getResources().getText(R.string.cancel_request_success);
+                                                else
+                                                	message = (String)getResources().getText(R.string.cancel_request_fail);
+                                                
                                                 Toast.makeText(getApplicationContext(),
-            											"已取消預約", Toast.LENGTH_SHORT).show();
+            											message, Toast.LENGTH_SHORT).show();
 
                                                 if(mRequestedAdapter.getCount() == 0) {
                                                     button.setVisibility(View.GONE);

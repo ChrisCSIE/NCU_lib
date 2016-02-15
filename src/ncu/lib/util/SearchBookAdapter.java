@@ -28,14 +28,14 @@ public class SearchBookAdapter extends ArrayAdapter<String> {
     
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-    	int textSize = 15;
+    	//int textSize = 5;
     	final String book = books.get(position);
         
         convertView = inflater.inflate(R.layout.simple_list_item, null);
         //convertView.setOnClickListener(null);
         
         final TextView bookTitleView = (TextView) convertView.findViewById(R.id.simple_list_text);
-        bookTitleView.setTextSize(textSize);
+        //bookTitleView.setTextSize(textSize);
         bookTitleView.setText(book);
         
         return convertView;
