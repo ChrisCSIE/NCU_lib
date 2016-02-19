@@ -68,7 +68,7 @@ public class LoginActivity extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);   
         int screenHeight = metrics.heightPixels;
         int screenWidth = metrics.widthPixels;
-        Toast.makeText(this, String.valueOf(screenHeight)+":"+String.valueOf(screenWidth), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, String.valueOf(screenHeight)+":"+String.valueOf(screenWidth), Toast.LENGTH_SHORT).show();
         
 		LayoutParams welcome_parms = welcome.getLayoutParams();
 		LayoutParams component_parms = componentLayout.getLayoutParams();
