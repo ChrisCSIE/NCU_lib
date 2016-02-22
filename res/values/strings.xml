@@ -2,8 +2,11 @@
 <resources>
 
     <string name="hello_world">Hello world!</string>
+    
     <string name="app_name">NCU Lib</string>
+    
     <string name="action_settings">Settings</string>
+    
     <string name="account">Username:\t</string>
     <string name="password">Password:\t</string>
     <string name="save_usr_pwd">Save username and password</string>
@@ -11,27 +14,31 @@
     <string name="clean">Clean</string>
     <string name="network_issue">Network unavailable</string>
     <string name="logining">Please be patient for login</string>
+    
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_main_menu_view">MainMenuView</string>
     <string name="title_search">\t\tSearch</string>
     <string name="title_borrowed">Borrowed</string>
     <string name="title_requested">Requested</string>
     <string name="title_news">\t\t\tNews</string>
-    <string name="title_newbooks">New books</string>
-    <string name="title_notice">\t\t\tNotice</string>
-    <string name="title_activity_search">Search book</string>
-    <string name="search_hint">Insert keywords ...</string>
+    <string name="title_newbooks">New Books</string>
+    <string name="title_notice">\t\tNotice</string>
+    
+    <string name="title_activity_search">Search Book</string>
+    <string name="search_hint">Insert Keywords ...</string>
     <string name="search_button">Search</string>
     <string name="prev">Prev</string>
     <string name="next">Next</string>
-    <string name="title_activity_book_detail">Detail of book</string>
+    
+    <string name="title_activity_book_detail">Detail of Book</string>
     <string name="bookname">Book name</string>
     <string name="isbn">ISBN</string>
     <string name="imprint">Imprint</string>
     <string name="version">Version</string>
     <string name="link">Link to</string>
     <string name="request_button">Request</string>
-    <string name="title_activity_request_book">Request book</string>
+    
+    <string name="title_activity_request_book">Request Book</string>
     <string name="callnumber">Call number</string>
     <string name="location">Location</string>
     <string name="status">Status</string>
@@ -39,21 +46,27 @@
     <string name="request">Request for ...</string>
     <string name="request_result_success">It will be handled by system, you can check it out in \"Resuested\" later</string>
     <string name="request_result_fail">Fail to request. Please try again later</string>
-    <string name="title_activity_requested">Requested books</string>
+    
+    <string name="title_activity_requested">Requested</string>
     <string name="text_no_requested">No requested book ...</string>
     <string name="button_cancel_request">Cancel requested books</string>
     <string name="cancel_request_success">Success to cancel requested books</string>
     <string name="cancel_request_fail">Fail to cancel requested books. Please try again later</string>
-    <string name="title_activity_borrowed">Borrowed books</string>
+    
+    <string name="title_activity_borrowed">Borrowed</string>
     <string name="text_no_borrowed">No borrowed book ...</string>
     <string name="button_extend_borrowed">Extend borrowed books</string>
     <string name="extend_borrowed_success">Success to extend books</string>
     <string name="extend_borrowed_fail">Fail to extend. Please try again later</string>
+    
     <string name="title_activity_news">News</string>
-    <string name="title_activity_new_books_list">New books</string>
+    
+    <string name="title_activity_new_books_list">New Books</string>
+    
     <string name="text_select_all">Select All</string>
     <string name="text_unselect_all">Unselect All</string>
     <string name="text_refresh">Refresh</string>
+    
     <string name="press_back_again">Press \"Back\" again to quit</string>
     
 	<!-- 

@@ -5,6 +5,7 @@ import ncu.lib.R.drawable;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,12 +14,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.text.StaticLayout;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 @SuppressLint("WrongCall")
 public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback {
@@ -186,13 +189,15 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 					&& y < BUTTON_NOTICE_YOFFSET + scale) {
 				Log.d("NOTICE", "NOTICE Button");
 				String mURL = "http://www2.lib.ncu.edu.tw/mobileold/appborr.html";
-				WebView webView = new WebView(activity);
+				//String mURL = "http://www2.lib.ncu.edu.tw/mobile/appborr.html";
+				final WebView webView = new WebView(activity);
 				webView.getSettings().setJavaScriptEnabled(true);
 		        webView.loadUrl(mURL);
 		        
 		        AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                 alert.setView(webView);
                 alert.show();
+                webView.reload();
 			}
 //			if (x > BUTTON_OPENING_XOFFSET && x < BUTTON_OPENING_XOFFSET + scale && y > BUTTON_OPENING_YOFFSET
 //					&& y < BUTTON_OPENING_YOFFSET + scale) {

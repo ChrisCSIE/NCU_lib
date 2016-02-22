@@ -31,6 +31,7 @@ public final class R {
     <drawable name="word">#2c3e50</drawable>
     <drawable name="button">#16a085</drawable>
     <drawable name="button_word">#E4F1FE</drawable> 
+ <drawable name="actionbar_background">#EAEAEA</drawable> 
          */
         public static final int actionbar_background=0x7f020020;
         public static final int actionbar_text=0x7f020021;
