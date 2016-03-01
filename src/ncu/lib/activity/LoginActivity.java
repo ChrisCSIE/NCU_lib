@@ -73,7 +73,7 @@ public class LoginActivity extends Activity {
 		LayoutParams welcome_parms = welcome.getLayoutParams();
 		LayoutParams component_parms = componentLayout.getLayoutParams();
 		
-        if (screenHeight < 1200) {
+        if (screenHeight < 1201) {
         	loginLayout.setBackgroundResource(R.drawable.white_background);
 //        	loginLayout.setBackgroundColor(Color.TRANSPARENT);
     		welcome_parms.height = screenHeight/2 - screenHeight/10;

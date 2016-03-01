@@ -50,7 +50,8 @@
         </activity>
         <activity
             android:name=".activity.BookDetailActivity"
-            android:label="@string/title_activity_book_detail" >
+            android:label="@string/title_activity_book_detail"
+            android:screenOrientation="portrait" >
         </activity>
         <!-- 
         <activity
@@ -60,23 +61,28 @@
          -->
         <activity
             android:name=".activity.RequestBookActivity"
-            android:label="@string/title_activity_request_book" >
+            android:label="@string/title_activity_request_book"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.RequestedActivity"
-            android:label="@string/title_activity_requested" >
+            android:label="@string/title_activity_requested"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.BorrowedActivity"
-            android:label="@string/title_activity_borrowed" >
+            android:label="@string/title_activity_borrowed"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.NewsActivity"
-            android:label="@string/title_activity_news" >
+            android:label="@string/title_activity_news"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.NewBooksListActivity"
-            android:label="@string/title_activity_new_books_list" >
+            android:label="@string/title_activity_new_books_list"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 
