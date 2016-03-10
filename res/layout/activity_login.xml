@@ -74,6 +74,7 @@
                 android:layout_height="40dip"
                 android:gravity="center"
                 android:background="@drawable/edittext_style"
+                android:password="true"
                 android:singleLine="true"
                 android:text=""
                 android:textSize="16dip" />
