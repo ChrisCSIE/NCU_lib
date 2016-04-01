@@ -35,6 +35,7 @@
     <string name="isbn">ISBN</string>
     <string name="imprint">Imprint</string>
     <string name="version">Version</string>
+    <string name="book_detail">Call number / Location / Status / Barcode</string>
     <string name="link">Link to</string>
     <string name="request_button">Request</string>
     
@@ -46,6 +47,9 @@
     <string name="request">Request for ...</string>
     <string name="request_result_success">It will be handled by system, and you can check it out in \"Requested\" later.</string>
     <string name="request_result_fail">Fail to request. Please try again later.</string>
+    <string name="ok">OK.</string>
+    <string name="returnMenu">Return Menu</string>
+    <string name="returnSearch">Return Search</string>
     
     <string name="title_activity_requested">Requested</string>
     <string name="text_no_requested">No requested book ...</string>

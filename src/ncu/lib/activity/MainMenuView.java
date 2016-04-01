@@ -17,9 +17,11 @@ import android.graphics.RectF;
 import android.text.StaticLayout;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -58,6 +60,15 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 	float yGap;
 	float textGap;
 	int size = 4;
+	
+	WebViewClient webViewClient = new WebViewClient() {
+    	@Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            Log.d("URL", url);
+            return false;
+        }
+    };
 
 	public MainMenuView(Activity activity) {
 		super(activity);
@@ -188,16 +199,40 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 			if (x > BUTTON_NOTICE_XOFFSET && x < BUTTON_NOTICE_XOFFSET + scale && y > BUTTON_NOTICE_YOFFSET
 					&& y < BUTTON_NOTICE_YOFFSET + scale) {
 				Log.d("NOTICE", "NOTICE Button");
-				String mURL = "http://www2.lib.ncu.edu.tw/mobileold/appborr.html";
-				//String mURL = "http://www2.lib.ncu.edu.tw/mobile/appborr.html";
+//				String mURL = "http://www2.lib.ncu.edu.tw/mobileold/appborr.html";
+				final String mURL = "http://www2.lib.ncu.edu.tw/mobileold/appborr.html";
 				final WebView webView = new WebView(activity);
 				webView.getSettings().setJavaScriptEnabled(true);
 		        webView.loadUrl(mURL);
 		        
 		        AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                 alert.setView(webView);
+                alert.setCancelable(false);
+                alert.setNeutralButton("上一頁", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+//						webView.loadUrl(mURL);
+						if (webView.canGoBack()){
+							webView.goBack();
+							//Log.d("GoBack", "Back");
+						}
+//						else
+//							Log.d("GoBack", "Fail");
+					}
+				});
+                alert.setNegativeButton("返回主選單", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+					}
+				});
                 alert.show();
                 webView.reload();
+                
+                webView.setWebViewClient(webViewClient);
 			}
 //			if (x > BUTTON_OPENING_XOFFSET && x < BUTTON_OPENING_XOFFSET + scale && y > BUTTON_OPENING_YOFFSET
 //					&& y < BUTTON_OPENING_YOFFSET + scale) {

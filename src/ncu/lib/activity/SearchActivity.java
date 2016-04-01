@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +31,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -41,13 +44,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 public class SearchActivity extends Activity {
 	private EditText keyword;
 	private Button searchButton;
-//	private ArrayAdapter<String> mListAdapter;
+	private ArrayAdapter<String> mListAdapter;
     private ListView mListView;
     private ArrayList<String> mBookNameList;
     private ArrayList<String> mBookIDList;
     private String mQueryString;
     private RelativeLayout loadingPanel, searchLayout;
-    private SearchBookAdapter bookAdapter;
+//    private SearchBookAdapter bookAdapter;
 
     RequestQueue mQueue;
     
@@ -63,19 +66,28 @@ public class SearchActivity extends Activity {
 		
 		mListView = (ListView) findViewById(R.id.bookListView);
 		keyword = (EditText)findViewById(R.id.keyword);
+		keyword.setOnEditorActionListener(new OnEditorActionListener() {
+			
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				// TODO Auto-generated method stub
+				Search();
+				return false;
+			}
+		});
 		searchButton = (Button)findViewById(R.id.search_button);
 		searchButton.setOnClickListener(searchEvent);
 		
 
         mBookIDList = new ArrayList<String>();
         mBookNameList = new ArrayList<String>();
-//        mListAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_list_item_1, mBookNameList);
-        bookAdapter = new SearchBookAdapter(this, mBookNameList);
+        mListAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_list_item_1, mBookNameList);
+//        bookAdapter = new SearchBookAdapter(this, mBookNameList);
         
         mQueue = VolleyProvider.getQueue(SearchActivity.this);
 
-//        mListView.setAdapter(mListAdapter);
-        mListView.setAdapter(bookAdapter);
+        mListView.setAdapter(mListAdapter);
+//        mListView.setAdapter(bookAdapter);
         mListView.setOnItemClickListener(mBookClickListener);
 
         nextBtn = (Button) findViewById(R.id.next);
@@ -96,11 +108,39 @@ public class SearchActivity extends Activity {
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-//				imm.hideSoftInputFromWindow(keyword.getWindowToken(), 0);
+//				imm.hideSoftInputFromWindow(mListView.getWindowToken(), 0);
 				imm.hideSoftInputFromWindow(searchButton.getWindowToken(), 0);
 				return false;
 			}
 		});
+	}
+	
+	private void Search() {
+        mQueryString = keyword.getText().toString();
+		if(mQueryString.equals("")) {
+			Toast.makeText(SearchActivity.this, getResources().getString(
+					R.string.search_hint), Toast.LENGTH_SHORT).show();
+        }
+		else {
+            try {
+				mQueryString = URLEncoder.encode(mQueryString, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+	                Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString,
+	                null, mResponseListener, mErrorListener);
+
+	        mQueue.add(jsonObjectRequest);
+	        loadingPanel.setVisibility(View.VISIBLE);
+//	        prevBtn.setClickable(false);
+//            nextBtn.setClickable(false);
+	        prevBtn.setVisibility(View.GONE);
+        	nextBtn.setVisibility(View.GONE);
+        	
+        	mListView.setVisibility(View.GONE);
+		}
 	}
 	
 	private OnClickListener searchEvent = new OnClickListener() {
@@ -110,32 +150,8 @@ public class SearchActivity extends Activity {
 			// TODO Auto-generated method stub
 			InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 			imm.hideSoftInputFromWindow(searchButton.getWindowToken(), 0);
-
-            mQueryString = keyword.getText().toString();
-			if(mQueryString.equals("")) {
-				Toast.makeText(SearchActivity.this, getResources().getString(
-						R.string.search_hint), Toast.LENGTH_SHORT).show();
-	        }
-			else {
-	            try {
-					mQueryString = URLEncoder.encode(mQueryString, "UTF-8");
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-		                Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString,
-		                null, mResponseListener, mErrorListener);
-	
-		        mQueue.add(jsonObjectRequest);
-		        loadingPanel.setVisibility(View.VISIBLE);
-//		        prevBtn.setClickable(false);
-//                nextBtn.setClickable(false);
-		        prevBtn.setVisibility(View.GONE);
-            	nextBtn.setVisibility(View.GONE);
-            	
-            	mListView.setVisibility(View.GONE);
-			}
+			
+			Search();
 		}
 	};
 	
@@ -218,17 +234,15 @@ public class SearchActivity extends Activity {
                     mBookNameList.add(i, temp.getString("booktitle"));
                     mBookIDList.add(i, temp.getString("url"));
 
-//                    mListAdapter.notifyDataSetChanged();
-                    bookAdapter.notifyDataSetChanged();
+                    mListAdapter.notifyDataSetChanged();
+//                    bookAdapter.notifyDataSetChanged();
                     loadingPanel.setVisibility(View.GONE);
                 }
-//                if(mListAdapter != null)
-//                    mListAdapter.notifyDataSetChanged();
-//                else
+                if(mListAdapter != null)
+                    mListAdapter.notifyDataSetChanged();
                 
-                if(bookAdapter != null)
-                    bookAdapter.notifyDataSetChanged();
-                else
+//                if(bookAdapter != null)
+//                    bookAdapter.notifyDataSetChanged();
 
                 loadingPanel.setVisibility(View.GONE);
                 mListView.setSelection(0);

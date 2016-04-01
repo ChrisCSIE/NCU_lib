@@ -29,9 +29,11 @@
         android:layout_above="@+id/request_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
-        android:headerDividersEnabled="true" />
+        android:layout_alignParentTop="true" />
+    <!-- android:headerDividersEnabled="true"
+        android:divider="@color/button"
+        android:dividerHeight="1dp"
+        android:layout_marginTop="5dp" -->
 	
     <Button
         android:id="@+id/request_button"

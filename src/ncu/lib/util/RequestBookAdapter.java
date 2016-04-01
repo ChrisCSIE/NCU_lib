@@ -15,10 +15,15 @@ import ncu.lib.R;
 import ncu.lib.activity.GlobalStaticVariable;
 import ncu.lib.library.JsonObjectRequestWithPostParams;
 import ncu.lib.library.VolleyProvider;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +51,7 @@ public class RequestBookAdapter extends ArrayAdapter<Item> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        int fontSize = 20;
+        int fontSize;
 
         final Item item = items.get(position);
         if (item != null) {
@@ -57,6 +62,10 @@ public class RequestBookAdapter extends ArrayAdapter<Item> {
                 view.setOnClickListener(null);
 
                 final TextView sectionView = (TextView) view.findViewById(R.id.item_section_header);
+                if (position==0)
+	                fontSize = 20;
+                else
+                	fontSize = 17;
                 sectionView.setTextSize(fontSize);
                 sectionView.setText(sectionItem.getTitle());
             } else {
@@ -65,7 +74,7 @@ public class RequestBookAdapter extends ArrayAdapter<Item> {
                 view = inflater.inflate(R.layout.button_item_entry, null);
 
                 final Button button = (Button) view.findViewById(R.id.request_book_button);
-
+                
                 if(button != null) {
                     button.setText(entryItem.getTitle());
                 }
@@ -116,7 +125,23 @@ public class RequestBookAdapter extends ArrayAdapter<Item> {
                                                 	else {
                                                 		message = context.getResources().getString(R.string.request_result_fail);
                                                 	}
-                                                	Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+//                                                	Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                                            		AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                                            		alert.setMessage(message);
+                                            		String okString = context.getResources().getString(R.string.ok);
+                                            		SpannableStringBuilder builder = new SpannableStringBuilder(okString);
+                                            		ForegroundColorSpan okSpan = new ForegroundColorSpan(Color.BLUE);
+                                            		builder.setSpan(okSpan, 0, okString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            		alert.setPositiveButton(builder, new DialogInterface.OnClickListener() {
+														
+														@Override
+														public void onClick(DialogInterface dialog, int which) {
+															// TODO Auto-generated method stub
+															
+														}
+													});
+                                            		alert.show();
+                                                	
 //                                                    String getMessage = jsonObject.getString("message");
 //                                                	String message = getMessage!=null? 
 //                                                			context.getResources().getString(R.string.request_result) : 

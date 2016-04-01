@@ -20,7 +20,7 @@
     <string name="title_requested">預約書目</string>
     <string name="title_news">最新消息</string>
     <string name="title_newbooks">新進館藏</string>
-    <string name="title_notice">借還書須知</string>
+    <string name="title_notice">開館及其他</string>
     
     <string name="title_activity_search">館藏目錄</string>
     <string name="search_hint">請輸入關鍵字 ...</string>
@@ -33,6 +33,7 @@
     <string name="isbn">ISBN</string>
     <string name="imprint">出版項</string>
     <string name="version">版本項</string>
+    <string name="book_detail">索書號 / 館藏地 / 狀態 / 條碼</string>
     <string name="link">連接至原文</string>
     <string name="request_button">預約</string>
     
@@ -44,6 +45,9 @@
     <string name="request">預約 ...</string>
     <string name="request_result_success">已交由借書系統處理,稍後可以到「預約書目」查看</string>
     <string name="request_result_fail">預約失敗，請稍後再試</string>
+    <string name="ok">確定</string>
+    <string name="returnMenu">返回主畫面</string>
+    <string name="returnSearch">返回館藏目錄</string>
     
     <string name="title_activity_requested">預約書目</string>
     <string name="text_no_requested">暫無預約書目 ...</string>

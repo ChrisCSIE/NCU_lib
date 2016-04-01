@@ -18,9 +18,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -29,6 +34,8 @@ import ncu.lib.util.EntryItem;
 import ncu.lib.util.Item;
 import ncu.lib.util.Requestable;
 import ncu.lib.util.SectionItem;
+
+import org.apache.commons.lang3.StringEscapeUtils;
 
 public class RequestBookActivity extends Activity implements AdapterView.OnItemClickListener{
 
@@ -40,6 +47,8 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
     private ListView mBookList;
     private RequestBookAdapter mRequestBookAdapter;
     private ProgressBar progressBar;
+    
+    private Button returnMenu, returnSearch;
 
     RequestQueue mQueue;
 
@@ -50,6 +59,11 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
         
         progressBar = (ProgressBar) findViewById(R.id.request_loading);
         progressBar.setVisibility(View.VISIBLE);
+        
+        returnMenu = (Button) findViewById(R.id.returnMenu);
+        returnSearch = (Button) findViewById(R.id.returnSearch);
+        returnMenu.setOnClickListener(returnButton);
+        returnSearch.setOnClickListener(returnButton);
         
         final String mRequest = getIntent().getStringExtra("request");
         mToken = GlobalStaticVariable.global.getToken();
@@ -71,6 +85,7 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
                         progressBar.setVisibility(View.GONE);
                         try {
                             mBookname = jsonObject.getString("bookname");
+                            mBookname = CodeConverter(mBookname);
                             mUrl = jsonObject.optString("url");
 
                             if(mBookname != "") {
@@ -111,6 +126,10 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
 
         mQueue.add(jsonObjectRequest);
     }
+    
+//    String CodeConverter(String s) {
+//    	return StringEscapeUtils.unescapeHtml4(s);
+//    }
 
 
 //    @Override
@@ -185,5 +204,23 @@ public class RequestBookActivity extends Activity implements AdapterView.OnItemC
         public String getRequest() {
             return request;
         }
+    }
+    
+    View.OnClickListener returnButton = new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			if (v==returnMenu) {
+				intent.setClass(RequestBookActivity.this, MenuActivity.class);
+				startActivity(intent);
+			}
+				RequestBookActivity.this.finish();
+		}
+	};
+    
+    String CodeConverter(String s) {
+		return Html.fromHtml(s).toString();
     }
 }
