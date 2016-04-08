@@ -24,6 +24,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 
 @SuppressLint("WrongCall")
 public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback {
@@ -205,32 +206,79 @@ public class MainMenuView extends SurfaceView implements SurfaceHolder.Callback 
 				webView.getSettings().setJavaScriptEnabled(true);
 		        webView.loadUrl(mURL);
 		        
-		        AlertDialog.Builder alert = new AlertDialog.Builder(activity);
-                alert.setView(webView);
-                alert.setCancelable(false);
-                alert.setNeutralButton("上一頁", new DialogInterface.OnClickListener() {
+		        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
+		        alertBuilder.setView(webView);
+		        alertBuilder.setNeutralButton("上一頁", null);
+		        alertBuilder.setNegativeButton("返回主選單", null);
+		        //alertBuilder.setCancelable(false);
+                
+                final AlertDialog alertDialog = alertBuilder.create();
+                alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 					
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
+					public void onShow(DialogInterface dialog) {
 						// TODO Auto-generated method stub
-//						webView.loadUrl(mURL);
-						if (webView.canGoBack()){
-							webView.goBack();
-							//Log.d("GoBack", "Back");
-						}
+						Button prevPage = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+						prevPage.setOnClickListener(new View.OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								if (webView.canGoBack())
+									webView.goBack();
+							}
+						});
+						
+						Button exit = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+						exit.setOnClickListener(new View.OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								alertDialog.cancel();
+							}
+						});
+					}
+				});
+                
+//                alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//					
+//					@Override
+//					public void onCancel(DialogInterface dialog) {
+//						// TODO Auto-generated method stub
+//						if (webView.canGoBack())
+//							webView.goBack();
 //						else
-//							Log.d("GoBack", "Fail");
-					}
-				});
-                alert.setNegativeButton("返回主選單", new DialogInterface.OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-					}
-				});
-                alert.show();
+//							alertDialog.cancel();
+//					}
+//				});
+                
+                alertDialog.show();
                 webView.reload();
+                
+//                alert.setNeutralButton("上一頁", new DialogInterface.OnClickListener() {
+//					
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//						// TODO Auto-generated method stub
+////						webView.loadUrl(mURL);
+//						if (webView.canGoBack()){
+//							webView.goBack();
+//							//Log.d("GoBack", "Back");
+//						}
+////						else
+////							Log.d("GoBack", "Fail");
+//					}
+//				});
+//                alert.setNegativeButton("返回主選單", new DialogInterface.OnClickListener() {
+//					
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//						// TODO Auto-generated method stub
+//					}
+//				});
+//                
+//                alert.show();
                 
                 webView.setWebViewClient(webViewClient);
 			}
