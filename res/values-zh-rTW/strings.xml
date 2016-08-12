@@ -25,6 +25,7 @@
     <string name="title_activity_search">館藏目錄</string>
     <string name="search_hint">請輸入關鍵字 ...</string>
     <string name="search_button">查詢</string>
+    <string name="ISBNsearch_button">ISBN查詢</string>
     <string name="prev">前一頁</string>
     <string name="next">下一頁</string>
     

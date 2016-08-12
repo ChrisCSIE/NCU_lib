@@ -27,6 +27,7 @@
     <string name="title_activity_search">Search Book</string>
     <string name="search_hint">Insert Keywords ...</string>
     <string name="search_button">Search</string>
+    <string name="ISBNsearch_button">ISBN Search</string>
     <string name="prev">Prev</string>
     <string name="next">Next</string>
     

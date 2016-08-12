@@ -205,6 +205,7 @@ public class LoginActivity extends Activity {
 									getResources().getString(
 											R.string.network_issue),
 									Toast.LENGTH_SHORT).show();
+							Log.e("BASEURL_ERROR", volleyError.toString());
 							pd.dismiss();
 							// Toast.makeText(
 							// getApplicationContext(),

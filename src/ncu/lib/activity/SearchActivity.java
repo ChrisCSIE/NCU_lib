@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import ncu.lib.R;
 import ncu.lib.library.VolleyProvider;
 import ncu.lib.util.SearchBookAdapter;
+import ncu.lib.zxing.integration.android.IntentIntegrator;
+import ncu.lib.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +24,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 import android.view.WindowManager;
@@ -43,7 +46,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 public class SearchActivity extends Activity {
 	private EditText keyword;
-	private Button searchButton;
+	private Button searchButton, ISBNsearchButton;
 	private ArrayAdapter<String> mListAdapter;
     private ListView mListView;
     private ArrayList<String> mBookNameList;
@@ -51,6 +54,8 @@ public class SearchActivity extends Activity {
     private String mQueryString;
     private RelativeLayout loadingPanel, searchLayout;
 //    private SearchBookAdapter bookAdapter;
+    IntentIntegrator integrator;
+    IntentResult scanResult;
 
     RequestQueue mQueue;
     
@@ -77,6 +82,8 @@ public class SearchActivity extends Activity {
 		});
 		searchButton = (Button)findViewById(R.id.search_button);
 		searchButton.setOnClickListener(searchEvent);
+		ISBNsearchButton = (Button)findViewById(R.id.ISBNsearch_button);
+		ISBNsearchButton.setOnClickListener(ISBNSearchEvent);
 		
 
         mBookIDList = new ArrayList<String>();
@@ -155,6 +162,110 @@ public class SearchActivity extends Activity {
 		}
 	};
 	
+	private OnClickListener ISBNSearchEvent = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
+			InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(searchButton.getWindowToken(), 0);
+			
+			integrator = new IntentIntegrator(SearchActivity.this);//指定當前的Activity
+			integrator.initiateScan(IntentIntegrator.ONE_D_CODE_TYPES); //啟動掃描器
+		}
+	};
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		scanResult = integrator.parseActivityResult(requestCode, resultCode, intent);
+		if(scanResult != null) {
+			keyword.setText(scanResult.getContents());
+			ISBNSearch();
+		}
+	}
+	
+	private void ISBNSearch() {
+        mQueryString = keyword.getText().toString();
+		if(mQueryString.equals("")) {
+			Toast.makeText(SearchActivity.this, getResources().getString(
+					R.string.search_hint), Toast.LENGTH_SHORT).show();
+        }
+		else {
+            try {
+				mQueryString = URLEncoder.encode(mQueryString, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+//                    Request.Method.GET, GlobalStaticVariable.BASEURL + "search/?query=" + mQueryString
+//                    + "&url=i?SEARCH=" + mQueryString + "&SORT=D",
+//                    null, mResponseListener, mErrorListener);
+            
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                  Request.Method.GET, GlobalStaticVariable.BASEURL + "isbnsearch/?query=" + mQueryString,
+                  null, ISBN_ResponseListener, mErrorListener);
+            
+//            Toast.makeText(SearchActivity.this, 
+//            		GlobalStaticVariable.ISBN_BASEURL + "ISBNsearch?query=" + mQueryString, 
+//            		Toast.LENGTH_LONG).show();
+
+	        mQueue.add(jsonObjectRequest);
+	        loadingPanel.setVisibility(View.VISIBLE);
+	        prevBtn.setVisibility(View.GONE);
+        	nextBtn.setVisibility(View.GONE);
+        	
+        	mListView.setVisibility(View.GONE);
+		}
+	}
+	
+	Response.Listener ISBN_ResponseListener = new Response.Listener<JSONObject>() {
+        @Override
+        public void onResponse(JSONObject jsonObject) {
+            try {
+                mBookIDList.clear();
+                mBookNameList.clear();
+
+                mNext = jsonObject.getString("next");
+                mPrev = jsonObject.getString("prev");
+
+                JSONArray bookJSONArray = jsonObject.getJSONArray("books");
+                for (int i = 0; i < bookJSONArray.length(); ++i) {
+                    JSONObject temp = bookJSONArray.getJSONObject(i);
+                    mBookNameList.add(i, temp.getString("booktitle"));
+                    mBookIDList.add(i, temp.getString("url"));
+
+                    //mListAdapter.notifyDataSetChanged();
+//                    loadingPanel.setVisibility(View.GONE);
+                }
+                if(mListAdapter != null)
+                    mListAdapter.notifyDataSetChanged();
+                
+                if(mBookNameList.isEmpty())
+                	Toast.makeText(SearchActivity.this, "No this book.", Toast.LENGTH_SHORT).show();
+                else
+                	ISBN_BookDatail(mBookIDList.get(0));
+                
+                loadingPanel.setVisibility(View.GONE);
+                mListView.setVisibility(View.VISIBLE);
+                prevBtn.setVisibility(View.VISIBLE);
+                nextBtn.setVisibility(View.VISIBLE);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    };
+	
+	private void ISBN_BookDatail(String bookID) {
+    	Intent intent = new Intent();
+		intent.putExtra("bookID", bookID);
+		intent.setClass(SearchActivity.this, BookDetailActivity.class);
+		startActivity(intent);
+	}
+	
+	
 	View.OnClickListener mButtonOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -201,13 +312,13 @@ public class SearchActivity extends Activity {
 		public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //			Toast.makeText(SearchActivity.this, mBookNameList.get(i).toString(), Toast.LENGTH_LONG).show();
 			Intent intent = new Intent();
-
+//			Toast.makeText(SearchActivity.this, mBookIDList.get(i), Toast.LENGTH_SHORT).show();
 			intent.putExtra("bookID", mBookIDList.get(i));
 			intent.putExtra("bookName", mBookNameList.get(i));
 			intent.setClass(SearchActivity.this, BookDetailActivity.class);
 //			intent.setClassName("tw.edu.ncu.nculibrary", "tw.edu.ncu.nculibrary.BookDetailListActivity");
-			startActivityForResult(intent, 1);
-//			startActivity(intent);
+//			startActivityForResult(intent, 1);
+			startActivity(intent);
         }
     };
 
@@ -240,6 +351,9 @@ public class SearchActivity extends Activity {
                 }
                 if(mListAdapter != null)
                     mListAdapter.notifyDataSetChanged();
+                
+                if(mBookNameList.isEmpty())
+                	Toast.makeText(SearchActivity.this, "No this book.", Toast.LENGTH_SHORT).show();
                 
 //                if(bookAdapter != null)
 //                    bookAdapter.notifyDataSetChanged();
